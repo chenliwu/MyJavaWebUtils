@@ -1,10 +1,8 @@
 package email;
 
-import com.charlie.ssm.demo.email.RootConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -48,12 +46,14 @@ public class EmailSenderTest {
         helper.setFrom("30075213@qq.com");
         helper.setTo("1047184259@qq.com");
         helper.setSubject("Spring Email Test");
-        helper.setText("这是一个带有附件的消息");
+        helper.setText("这是一个带有附件的消息。\n这是一个带有附件的消息。");
         //使用Spring的FileSystemResource来加载附件
-        FileSystemResource image = new FileSystemResource("E:\\hzxy.jpg");
+        FileSystemResource image = new FileSystemResource("E:\\test.jpg");
+        FileSystemResource image1 = new FileSystemResource("E:\\test1.jpg");
         System.out.println(image.exists());
         //添加附加，第一个参数为添加到Email中附件的名称，第二个人参数是图片资源
-        helper.addAttachment("hzxy.jpg", image);
+        helper.addAttachment("test.jpg", image);
+        helper.addAttachment("test1.jpg", image1);
         mailSender.send(message);
         System.out.println("邮件发送完毕");
     }
@@ -68,14 +68,14 @@ public class EmailSenderTest {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom("30075213@qq.com");
-        helper.setTo("1047184259@qq.com");
+        helper.setTo("395383954@qq.com");
         helper.setSubject("Spring Email Test");
         helper.setText("<html><body><img src='cid:testLogo'>"
                 + "<h4>Hello World!!!</h4>"
                 + "</body></html>", true);//第二个参数表明这是一个HTML
         //src='cid:testLogo'表明在消息中会有一部分是图片并以testLogo来进行标识
         //ClassPathResource image = new ClassPathResource("logo.jpg");
-        FileSystemResource image = new FileSystemResource("E:\\hzxy.jpg");
+        FileSystemResource image = new FileSystemResource("E:\\test.jpg");
         System.out.println(image.exists());
         helper.addInline("testLogo", image);//添加内联图片，第一个参数表明内联图片的标识符，第二个参数是图片的资源引用
         mailSender.send(message);
