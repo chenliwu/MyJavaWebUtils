@@ -207,9 +207,9 @@
             </props>
         </property>
         <!--账号和密码-->
-        <property name="username" value="30075213@qq.com"></property>
+        <property name="username" value=""></property>
         <!--密码，这里不是邮箱的密码，而是开启服务器后，生成的授权码-->
-        <property name="password" value="gcmtuwzhfjpgcafi"></property>
+        <property name="password" value=""></property>
     </bean>
 
 

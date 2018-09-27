@@ -23,7 +23,7 @@ public class EmailSenderTest {
     private JavaMailSender mailSender;
 
     @Test
-    public void sendSimpleEmail(){
+    public void sendSimpleEmail() {
         SimpleMailMessage message = new SimpleMailMessage();//消息构造器
         message.setFrom("11111@qq.com");//发件人
         message.setTo("1111@qq.com");//收件人
@@ -34,8 +34,12 @@ public class EmailSenderTest {
     }
 
 
+
+
+
     /**
      * 发送带有附件的email
+     *
      * @throws MessagingException
      */
     @Test
@@ -61,10 +65,11 @@ public class EmailSenderTest {
 
     /**
      * 发送富文本内容的Email
+     *
      * @throws MessagingException
      */
     @Test
-    public void sendRichEmail() throws MessagingException{
+    public void sendRichEmail() throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom("30075213@qq.com");
