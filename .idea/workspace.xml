@@ -7,15 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23ba459b-6bc9-4a2b-9f83-9be3539091e9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_mail_mail_1_4_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_3_8_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/charlie/ssm/demo/filesystem/Controller/FileRestController.class" afterPath="$PROJECT_DIR$/target/classes/com/charlie/ssm/demo/filesystem/Controller/FileRestController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/charlie/ssm/demo/service/impl/ATask.class" afterPath="$PROJECT_DIR$/target/classes/com/charlie/ssm/demo/service/impl/ATask.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/MyJavaWebUtils_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/MyJavaWebUtils_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/email/EmailSenderTest.java" afterPath="$PROJECT_DIR$/src/test/email/EmailSenderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/springMVC-config.xml" afterPath="$PROJECT_DIR$/target/classes/springMVC-config.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -62,8 +55,8 @@
       <file leaf-file-name="EmailSenderTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/email/EmailSenderTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="53" column="35" lean-forward="false" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
+            <state relative-caret-position="224">
+              <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -545,7 +538,7 @@
       <workItem from="1537319938864" duration="1857000" />
       <workItem from="1537331565742" duration="1438000" />
       <workItem from="1538022061051" duration="7430000" />
-      <workItem from="1538040155248" duration="1133000" />
+      <workItem from="1538040155248" duration="1211000" />
     </task>
     <task id="LOCAL-00001" summary="发送邮件带附件">
       <created>1537334913112</created>
@@ -554,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1537334913112</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="发送邮件带附件">
+      <created>1538041327539</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1538041327539</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -590,7 +590,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30594000" />
+    <option name="totallyTimeSpent" value="30672000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -903,6 +903,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1150">
           <caret line="31" column="40" lean-forward="false" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -939,8 +940,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/email/EmailSenderTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="53" column="35" lean-forward="false" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
+        <state relative-caret-position="224">
+          <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
