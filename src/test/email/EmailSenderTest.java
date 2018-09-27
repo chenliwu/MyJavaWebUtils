@@ -1,8 +1,10 @@
 package email;
 
+import com.charlie.ssm.demo.email.RootConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -46,9 +48,10 @@ public class EmailSenderTest {
         helper.setFrom("30075213@qq.com");
         helper.setTo("1047184259@qq.com");
         helper.setSubject("Spring Email Test");
-        helper.setText("这是一个带有附件的消息");
+        helper.setText("这是一个带有附件的消息。\n这是一个带有附件的消息。");
         //使用Spring的FileSystemResource来加载附件
-        FileSystemResource image = new FileSystemResource("E:\\hzxy.jpg");
+        FileSystemResource image = new FileSystemResource("E:\\test.jpg");
+        FileSystemResource image1 = new FileSystemResource("E:\\test1.jpg");
         System.out.println(image.exists());
         //添加附加，第一个参数为添加到Email中附件的名称，第二个人参数是图片资源
         // 注意第一个参数要添加文件的后缀名次，不然无法下载
