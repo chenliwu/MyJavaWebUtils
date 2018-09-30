@@ -6,9 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23ba459b-6bc9-4a2b-9f83-9be3539091e9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/email/EmailSenderTest1.java" />
+    <list default="true" id="23ba459b-6bc9-4a2b-9f83-9be3539091e9" name="Default" comment="测试发送邮件的异常">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/email/EmailSenderTest1.java" afterPath="$PROJECT_DIR$/src/test/email/EmailSenderTest1.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -32,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="springMVC-config.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="springMVC-config.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/springMVC-config.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="191" column="45" lean-forward="true" selection-start-line="191" selection-start-column="45" selection-end-line="191" selection-end-column="46" />
+              <caret line="191" column="45" lean-forward="false" selection-start-line="191" selection-start-column="45" selection-end-line="191" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -55,8 +55,8 @@
       <file leaf-file-name="EmailSenderTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/email/EmailSenderTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1044">
-              <caret line="87" column="5" lean-forward="true" selection-start-line="65" selection-start-column="4" selection-end-line="87" selection-end-column="5" />
+            <state relative-caret-position="516">
+              <caret line="87" column="5" lean-forward="false" selection-start-line="65" selection-start-column="4" selection-end-line="87" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -64,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EmailSenderTest1.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EmailSenderTest1.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/email/EmailSenderTest1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="66" column="40" lean-forward="false" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+            <state relative-caret-position="688">
+              <caret line="58" column="33" lean-forward="true" selection-start-line="58" selection-start-column="33" selection-end-line="58" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -263,7 +263,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EmailSenderTest1.sendRichEmail">
+  <component name="RunManager" selected="JUnit.EmailSenderTest1.sendSimpleEmail">
     <configuration name="EmailSenderTest1.sendRichEmail" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -543,8 +543,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.EmailSenderTest1.sendRichEmail" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.EmailSenderTest1.sendSimpleEmail" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.EmailSenderTest1.sendSimpleEmail" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.EmailSenderTest1.sendRichEmail" />
         <item index="2" class="java.lang.String" itemvalue="Application.Test" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.EmailSenderTest.ext" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.EmailSenderTest.sendRichEmail" />
@@ -571,7 +571,7 @@
       <workItem from="1537331565742" duration="1438000" />
       <workItem from="1538022061051" duration="7430000" />
       <workItem from="1538040155248" duration="2458000" />
-      <workItem from="1538271872437" duration="1200000" />
+      <workItem from="1538271872437" duration="1718000" />
     </task>
     <task id="LOCAL-00001" summary="发送邮件带附件">
       <created>1537334913112</created>
@@ -601,7 +601,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538041891890</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="测试发送邮件的异常">
+      <created>1538273089454</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1538273089455</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -620,24 +627,24 @@
     <history-entry file="EmailSenderTest1_sendRichEmail - 2018.09.30 at 10h 03m 27s.xml">
       <configuration name="EmailSenderTest1.sendRichEmail" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="EmailSenderTest1_sendRichEmail - 2018.09.30 at 10h 06m 56s.xml">
+      <configuration name="EmailSenderTest1.sendRichEmail" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmailSenderTest1_sendRichEmail - 2018.09.30 at 10h 08m 25s.xml">
+      <configuration name="EmailSenderTest1.sendRichEmail" configurationId="JUnit" />
+    </history-entry>
     <history-entry file="EmailSenderTest1_sendSimpleEmail - 2018.09.30 at 09h 55m 05s.xml">
       <configuration name="EmailSenderTest1.sendSimpleEmail" configurationId="JUnit" />
     </history-entry>
     <history-entry file="EmailSenderTest1_sendSimpleEmail - 2018.09.30 at 09h 55m 59s.xml">
       <configuration name="EmailSenderTest1.sendSimpleEmail" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EmailSenderTest_sendEmailWithAttachment - 2018.09.19 at 12h 41m 40s.xml">
-      <configuration name="EmailSenderTest.sendEmailWithAttachment" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EmailSenderTest_sendRichEmail - 2018.09.19 at 12h 44m 47s.xml">
-      <configuration name="EmailSenderTest.sendRichEmail" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestUserService_testSelectPage - 2018.09.05 at 22h 35m 00s.xml">
-      <configuration name="TestUserService.testSelectPage" configurationId="JUnit" />
+    <history-entry file="EmailSenderTest1_sendSimpleEmail - 2018.09.30 at 10h 12m 41s.xml">
+      <configuration name="EmailSenderTest1.sendSimpleEmail" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33119000" />
+    <option name="totallyTimeSpent" value="33637000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -696,7 +703,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="发送邮件带附件" />
     <MESSAGE value="获取文件后缀名" />
-    <option name="LAST_COMMIT_MESSAGE" value="获取文件后缀名" />
+    <MESSAGE value="测试发送邮件的异常" />
+    <option name="LAST_COMMIT_MESSAGE" value="测试发送邮件的异常" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -974,28 +982,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/email/EmailSenderTest1.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/springMVC-config.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="66" column="40" lean-forward="false" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+        <state relative-caret-position="210">
+          <caret line="191" column="45" lean-forward="false" selection-start-line="191" selection-start-column="45" selection-end-line="191" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/email/EmailSenderTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1044">
-          <caret line="87" column="5" lean-forward="true" selection-start-line="65" selection-start-column="4" selection-end-line="87" selection-end-column="5" />
+        <state relative-caret-position="516">
+          <caret line="87" column="5" lean-forward="false" selection-start-line="65" selection-start-column="4" selection-end-line="87" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/springMVC-config.xml">
+    <entry file="file://$PROJECT_DIR$/src/test/email/EmailSenderTest1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="191" column="45" lean-forward="true" selection-start-line="191" selection-start-column="45" selection-end-line="191" selection-end-column="46" />
+        <state relative-caret-position="688">
+          <caret line="58" column="33" lean-forward="true" selection-start-line="58" selection-start-column="33" selection-end-line="58" selection-end-column="33" />
           <folding />
         </state>
       </provider>
