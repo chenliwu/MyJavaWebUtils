@@ -1,8 +1,9 @@
-package com.charlie.ssm.demo.filesystem.Controller;
+package com.charlie.ssm.demo.controller;
 
-import org.springframework.stereotype.Controller;
+import com.charlie.ssm.demo.utils.HttpUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -11,26 +12,62 @@ import java.net.URLEncoder;
 /**
  * 文件系统
  */
-@Controller
+@RestController
 @RequestMapping("/api/files")
 public class FileRestController {
 
     @GetMapping("/downFile")
-    public void downFile(HttpServletResponse response) throws Exception{
-        String filePath = "F:/myimg.jpg";
-        File file = new File(filePath);
-        if(!file.exists()){
-            System.out.println("文件不存在");
-            return ;
+    public void downFile(HttpServletResponse response) throws Exception {
+        try{
+            String filePath = "F:/myimg.jpg";
+            File file = new File(filePath);
+            if (!file.exists()) {
+                System.out.println("文件不存在");
+                return;
+            }
+            outputFile(response, file);
+            outputFile(response, file);
+        }catch (Exception e){
+            System.out.println("异常："+e.getMessage());
         }
+    }
+
+    /**
+     * 跨域下载文件
+     *
+     * @param response
+     * @throws Exception
+     */
+    @GetMapping("/downFile1")
+    public void downFile1(HttpServletResponse response) throws Exception {
+        try{
+            File file = HttpUtils.getDownFile("/api/files/downFile", "downPath", "testDown.jpg");
+            if (!file.exists()) {
+                System.out.println("文件不存在");
+                return;
+            }
+            outputFile(response, file);
+        }catch (Exception e){
+            System.out.println("异常："+e.getMessage());
+        }
+
+    }
+
+    /**
+     * 将文件转化成输出流
+     *
+     * @param response
+     * @param file
+     */
+    private void outputFile(HttpServletResponse response, File file) throws Exception{
         InputStream inputStream = null;
-        OutputStream outputStream =null;
+        OutputStream outputStream = null;
         try {
             //转码，免得文件名中文乱码
-            String filename = URLEncoder.encode(file.getName(),"UTF-8");
+            String filename = URLEncoder.encode(file.getName(), "UTF-8");
             //设置文件下载头
-            response.addHeader("Content-Disposition", "attachment;filename="+ filename);
-            response.addHeader("Content-Length",String.valueOf(file.length()));
+            response.addHeader("Content-Disposition", "attachment;filename=" + filename);
+            response.addHeader("Content-Length", String.valueOf(file.length()));
             //设置文件ContentType类型
             response.setContentType("multipart/form-data");
 
@@ -46,10 +83,10 @@ public class FileRestController {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if(outputStream!=null){
+            if (outputStream != null) {
                 outputStream.close();
             }
-            if(inputStream!=null){
+            if (inputStream != null) {
                 inputStream.close();
             }
         }
@@ -57,10 +94,10 @@ public class FileRestController {
 
 
     @GetMapping("/getImg")
-    public void getImg(HttpServletResponse response) throws IOException{
+    public void getImg(HttpServletResponse response) throws IOException {
         //读取本地图片输入流
         String filePath = "F:/myimg.jpg";
-        if(new File(filePath).exists()){
+        if (new File(filePath).exists()) {
             FileInputStream inputStream = null;
             OutputStream out = null;
             try {
@@ -76,16 +113,16 @@ public class FileRestController {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } finally {
-                if(inputStream != null){
+                if (inputStream != null) {
                     //关闭输入流
                     inputStream.close();
                 }
-                if(out!=null){
+                if (out != null) {
                     //关闭响应输出流
                     out.close();
                 }
             }
-        }else{
+        } else {
             System.out.println("文件不存在");
         }
     }

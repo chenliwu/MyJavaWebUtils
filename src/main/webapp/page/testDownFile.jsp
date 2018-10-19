@@ -20,6 +20,12 @@
 <div>
     <h3>按钮下载文件</h3>
     <button id="downFileElement" type="button">按钮下载文件</button>
+
+    <div>
+        <button id="downFileElement1">跨域下载文件</button>
+    </div>
+
+
 </div>
 
 <script>
@@ -27,6 +33,11 @@
         $("#downFileElement").click(function () {
             location.href = basePath + "/api/files/downFile";
         });
+
+        $("#downFileElement1").click(function () {
+            location.href = basePath + "/api/files/downFile1";
+        });
+
     });
 </script>
 </body>
