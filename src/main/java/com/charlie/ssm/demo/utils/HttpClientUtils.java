@@ -36,7 +36,7 @@ public class HttpClientUtils {
     /**
      * 临时文件保存
      */
-    private static final String tempFileDir = "D://tempFileDir";
+    private static final String tempFileDir = "D://tempFileDir/";
 
     private static int connectTimeout = 10000;
     private static int socketTimeout = 10000;
@@ -261,7 +261,7 @@ public class HttpClientUtils {
                 dir.mkdir();
             }
 
-            File file = new File(savePath + File.separator + saveFileName);
+            File file = new File(savePath + saveFileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -355,7 +355,7 @@ public class HttpClientUtils {
                 dir.mkdir();
             }
             long length = entity.getContentLength();
-            file = new File(tempFileDir + File.separator + saveFileName);
+            file = new File(tempFileDir + saveFileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
