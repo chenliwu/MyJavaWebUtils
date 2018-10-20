@@ -42,15 +42,15 @@ public class EmailSenderTest1 {
             mailSender.setJavaMailProperties(properties);
             mailSender.setHost("smtp.exmail.qq.com");
             mailSender.setPort(465);
-            mailSender.setUsername("chenlw@bytter.com");
-            mailSender.setPassword("Clw201807");
+            mailSender.setUsername("asdsd@asd.com");
+            mailSender.setPassword("123221");
 
             /**
              * 注意：发件人和Username要保持一致，否则邮件发送不成功
              */
             SimpleMailMessage message = new SimpleMailMessage();//消息构造器
-            message.setFrom("chenlw@bytter.com");//发件人
-            message.setTo("30075213@qq.com");//收件人
+            message.setFrom("asdasd@bytter.com");//发件人
+            message.setTo("asdasd@qq.com");//收件人
             message.setSubject("Spring Email Test");//主题
             message.setText("hello world!!");//正文
             mailSender.send(message);
