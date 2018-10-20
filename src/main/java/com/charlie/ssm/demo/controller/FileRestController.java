@@ -3,6 +3,7 @@ package com.charlie.ssm.demo.controller;
 import com.charlie.ssm.demo.utils.HttpUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,18 +18,19 @@ import java.net.URLEncoder;
 public class FileRestController {
 
     @GetMapping("/downFile")
-    public void downFile(HttpServletResponse response) throws Exception {
-        try{
-            String filePath = "F:/myimg.jpg";
+    public void downFile(HttpServletResponse response, @RequestParam(name = "downFilePath",required = false) String downFilePath) throws Exception {
+        try {
+            System.out.println("downFilePath:"+downFilePath);
+            //String filePath = "F:/myimg.jpg";
+            String filePath = "E:/myimg.jpg";
             File file = new File(filePath);
             if (!file.exists()) {
                 System.out.println("文件不存在");
                 return;
             }
             outputFile(response, file);
-            outputFile(response, file);
-        }catch (Exception e){
-            System.out.println("异常："+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("异常：" + e.getMessage());
         }
     }
 
@@ -40,15 +42,15 @@ public class FileRestController {
      */
     @GetMapping("/downFile1")
     public void downFile1(HttpServletResponse response) throws Exception {
-        try{
+        try {
             File file = HttpUtils.getDownFile("/api/files/downFile", "downPath", "testDown.jpg");
             if (!file.exists()) {
                 System.out.println("文件不存在");
                 return;
             }
             outputFile(response, file);
-        }catch (Exception e){
-            System.out.println("异常："+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("异常：" + e.getMessage());
         }
 
     }
@@ -59,7 +61,7 @@ public class FileRestController {
      * @param response
      * @param file
      */
-    private void outputFile(HttpServletResponse response, File file) throws Exception{
+    private void outputFile(HttpServletResponse response, File file) throws Exception {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {

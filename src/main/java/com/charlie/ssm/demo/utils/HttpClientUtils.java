@@ -1,10 +1,11 @@
 package com.charlie.ssm.demo.utils;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -30,100 +31,73 @@ import java.util.Map;
  * @author: chenlw
  * @date 2018/10/19  22:47
  **/
-public class HttpUtils {
-
-
-    private static String host = "127.0.0.1:8099/MySSM";
-
-    private static String scheme_http = "http";
-
-    private static String scheme_https = "https";
-
-    private static HttpClient httpClient;
-
-    private static OutputStream out = null;
-    private static InputStream in = null;
+public class HttpClientUtils {
 
     /**
      * 临时文件保存
      */
     private static final String tempFileDir = "D://tempFileDir";
 
+    private static int connectTimeout = 10000;
+    private static int socketTimeout = 10000;
+
+
     public static void main(String[] args) {
-        //test1();
-        //test2();
         testDownFile();
-    }
-
-    public static void test1() {
-        try {
-            String path = "/api/user/queryOne";
-            Map<String, String> params = new HashedMap();
-            params.put("username", "chenlw");
-            params.put("password", "chenlw");
-            String result = get(path, params);
-            System.out.println("result:" + result);
-        } catch (Exception e) {
-            System.out.println("异常：" + e.getMessage());
-        }
-
-    }
-
-
-    public static void test2() {
-        try {
-            String path = "/api/user/queryOne1";
-            Map<String, String> params = new HashedMap();
-            params.put("username", "chenlw");
-            params.put("password", "chenlw");
-            String result = post(path, params);
-            System.out.println("result:" + result);
-        } catch (Exception e) {
-            System.out.println("异常：" + e.getMessage());
-        }
-
     }
 
     public static void testDownFile() {
         try {
-            String savePath = "D:";
+            String scheme = "http";
+            String host = "127.0.0.1:8099/MyJavaWebUtils";
             String path = "/api/files/downFile";
-            Map<String, String> params = new HashedMap();
-            params.put("downPath", "downPath");
-            downFile(path, params, savePath, "localFileName.jpg");
+            Map<String, String> params = new HashMap<>();
+            params.put("downFilePath", "downFilePath");
+            String saveFileName = "saveFileName.jpg";
+            downFile(scheme, host, path, params, null, connectTimeout, socketTimeout, tempFileDir, saveFileName);
+            System.out.println("下载完毕");
         } catch (Exception e) {
             System.out.println("异常：" + e.getMessage());
         }
     }
 
-
-    static {
-        //初始化httpclient
-        httpClient = HttpClients.custom().build();
-    }
-
     /**
-     * 发送GET请求
+     * GET请求
+     * <p>
+     * 不使用代理则传参为空即可
      *
+     * @param scheme
+     * @param host
      * @param path
      * @param params
+     * @param proxy
+     * @param connectTimeout
+     * @param socketTimeout
      * @return
+     * @throws Exception
      */
-    public static String get(String path, Map<String, String> params) {
-        //String basePath = "/v1";
+    public static String get(String scheme, String host, String path, Map<String, String> params,
+                             HttpHost proxy, int connectTimeout, int socketTimeout) throws Exception {
+
         URIBuilder builder = new URIBuilder()
-                .setScheme(scheme_http)
+                .setScheme(scheme)
                 .setHost(host)
                 .setPath(path);
-
         for (String key : params.keySet()) {
             builder.setParameter(key, params.get(key).toString());
         }
         try {
-
             URI uri = builder.build();
-
             HttpGet httpGet = new HttpGet(uri);
+
+            //构建请求配置
+            RequestConfig requestConfig = initRequestConfig(proxy, connectTimeout, socketTimeout);
+
+            if (requestConfig != null) {
+                httpGet.setConfig(requestConfig);
+            }
+
+            HttpClient httpClient = HttpClients.custom().build();
             HttpResponse resp = httpClient.execute(httpGet);
             if (resp.getStatusLine().getStatusCode() >= 300) {
                 System.err.println("Something wrong: " + resp.getStatusLine().toString());
@@ -141,19 +115,26 @@ public class HttpUtils {
         }
     }
 
+
     /**
      * POST请求
      *
+     * @param scheme
+     * @param host
      * @param path
      * @param params
+     * @param proxy
+     * @param connectTimeout
+     * @param socketTimeout
      * @return
      */
-    public static String post(String path, Map<String, String> params) {
-        //String basePath = "/v1";
-        URIBuilder builder = new URIBuilder().setScheme(scheme_http)
+    public static String post(String scheme, String host, String path, Map<String, String> params,
+                              HttpHost proxy, int connectTimeout, int socketTimeout) {
+        URIBuilder builder = new URIBuilder()
+                .setScheme(scheme)
                 .setHost(host)
                 .setPath(path);
-        // clear the params with empty value
+
         Map<String, String> trimmedParams = new HashMap<>();
         for (String key : params.keySet()) {
             if (params.get(key) != null) {
@@ -168,7 +149,15 @@ public class HttpUtils {
                 kvs.add(new BasicNameValuePair(key, trimmedParams.get(key)));
             }
             requestBuilder.setEntity(new UrlEncodedFormEntity(kvs, "UTF-8"));
-            HttpUriRequest request = requestBuilder.build();
+
+            //构建请求配置
+            RequestConfig requestConfig = initRequestConfig(proxy, connectTimeout, socketTimeout);
+
+            HttpUriRequest request = requestBuilder
+                    .setConfig(requestConfig)
+                    .build();
+
+            HttpClient httpClient = HttpClients.custom().build();
             HttpResponse resp = httpClient.execute(request);
             if (resp.getStatusLine().getStatusCode() >= 300) {
                 System.err.println("Something wrong: " + resp.getStatusLine().toString());
@@ -186,19 +175,57 @@ public class HttpUtils {
         }
     }
 
+    /**
+     * 构建请求的配置
+     *
+     * @param proxy
+     * @param connectTimeout
+     * @param socketTimeout
+     * @return
+     */
+    private static RequestConfig initRequestConfig(HttpHost proxy, int connectTimeout, int socketTimeout) {
+        //请求构建器
+        //请求配置构建器
+        RequestConfig.Builder requestConfigBuilder = RequestConfig.custom();
+        RequestConfig defaultRequestConfig = null;
+        if (proxy != null) {
+            //设置代理
+            requestConfigBuilder.setProxy(proxy);
+        }
+        if (connectTimeout > 0) {
+            //设置超时
+            requestConfigBuilder.setConnectionRequestTimeout(connectTimeout);
+        }
+        if (socketTimeout > 0) {
+            //建立连接超时
+            requestConfigBuilder.setSocketTimeout(socketTimeout);
+        }
+        defaultRequestConfig = requestConfigBuilder.build();
+        return defaultRequestConfig;
+    }
+
 
     /**
      * 下载文件
      *
+     * @param scheme
+     * @param host
      * @param path
      * @param params
-     * @param savePath
-     * @param localFileName
+     * @param proxy
+     * @param connectTimeout
+     * @param socketTimeout
+     * @param savePath       文件保存路径
+     * @param saveFileName   文件保存名称
      */
-    public static void downFile(String path, Map<String, String> params, String savePath, String localFileName) {
-        //String basePath = "/v1";
+    public static void downFile(String scheme, String host, String path, Map<String, String> params,
+                                HttpHost proxy, int connectTimeout, int socketTimeout,
+                                String savePath, String saveFileName) {
+        OutputStream out = null;
+        InputStream in = null;
+
         URIBuilder builder = new URIBuilder()
-                .setScheme(scheme_http)
+                .setScheme(scheme)
                 .setHost(host)
                 .setPath(path);
 
@@ -210,6 +237,14 @@ public class HttpUtils {
             URI uri = builder.build();
 
             HttpGet httpGet = new HttpGet(uri);
+            //构建请求配置
+            RequestConfig requestConfig = initRequestConfig(proxy, connectTimeout, socketTimeout);
+            if (requestConfig != null) {
+                httpGet.setConfig(requestConfig);
+            }
+
+            HttpClient httpClient = HttpClients.custom().build();
+
             HttpResponse resp = httpClient.execute(httpGet);
             if (resp.getStatusLine().getStatusCode() >= 300) {
                 throw new RuntimeException("Something wrong: " + resp.getStatusLine().toString());
@@ -217,7 +252,6 @@ public class HttpUtils {
             HttpEntity entity = resp.getEntity();
             //读取输入流
             in = entity.getContent();
-
             long length = entity.getContentLength();
 
             //临时保存文件的目录
@@ -227,7 +261,7 @@ public class HttpUtils {
                 dir.mkdir();
             }
 
-            File file = new File(savePath + File.separator + localFileName);
+            File file = new File(savePath + File.separator + saveFileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -262,28 +296,50 @@ public class HttpUtils {
         }
     }
 
+
     /**
      * 获取下载文件
      *
+     * @param scheme
+     * @param host
      * @param path
-     * @param downPath
-     * @param localFileName
+     * @param proxy
+     * @param connectTimeout
+     * @param socketTimeout
+     * @param tempFileDir
+     * @param saveFileName
      * @return
      */
-    public static File getDownFile(String path, String downPath, String localFileName) {
-        if (downPath == null && downPath.length() == 0) {
-            return null;
-        }
+    public static File getDownFile(String scheme, String host, String path, Map<String, String> params,
+                                   HttpHost proxy, int connectTimeout, int socketTimeout,
+                                   String tempFileDir, String saveFileName) {
+
+        OutputStream out = null;
+        InputStream in = null;
+
         URIBuilder builder = new URIBuilder()
-                .setScheme(scheme_http)
+                .setScheme(scheme)
                 .setHost(host)
                 .setPath(path);
-        builder.setParameter("downPath", downPath);
+
+        for (String key : params.keySet()) {
+            builder.setParameter(key, params.get(key).toString());
+        }
+
         File file = null;
         try {
             URI uri = builder.build();
 
             HttpGet httpGet = new HttpGet(uri);
+
+            //构建请求配置
+            RequestConfig requestConfig = initRequestConfig(proxy, connectTimeout, socketTimeout);
+            if (requestConfig != null) {
+                httpGet.setConfig(requestConfig);
+            }
+
+            HttpClient httpClient = HttpClients.custom().build();
+
             HttpResponse resp = httpClient.execute(httpGet);
             if (resp.getStatusLine().getStatusCode() >= 300) {
                 throw new RuntimeException("Something wrong: " + resp.getStatusLine().toString());
@@ -292,14 +348,14 @@ public class HttpUtils {
             //读取输入流
             in = entity.getContent();
 
+            //临时保存文件的目录
             File dir = new File(tempFileDir);
             if (!dir.exists()) {
                 //创建文件夹
                 dir.mkdir();
             }
-
             long length = entity.getContentLength();
-            file = new File(tempFileDir + File.separator + localFileName);
+            file = new File(tempFileDir + File.separator + saveFileName);
             if (!file.exists()) {
                 file.createNewFile();
             }

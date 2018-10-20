@@ -32,15 +32,25 @@ public class EmailSenderTest1 {
             properties.setProperty("mail.smtp.starttls.enable", "true");
             //使用SSL，这个设置很关键
             properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            mailSender.setJavaMailProperties(properties);
-            mailSender.setHost("smtp.exmail.qqzz.com");
-            mailSender.setPort(465);
-            mailSender.setUsername("123123@bytter.com");
-            mailSender.setPassword("123123");
 
+            ///设置代理发送邮件
+            properties.setProperty("proxySet", "true");
+            properties.setProperty("socksProxyHost", "192.168.0.84");
+            properties.setProperty("socksProxyPort", "3128");
+            properties.setProperty("mail.smtp.host", "smtp.exmail.qq.com");
+
+            mailSender.setJavaMailProperties(properties);
+            mailSender.setHost("smtp.exmail.qq.com");
+            mailSender.setPort(465);
+            mailSender.setUsername("chenlw@bytter.com");
+            mailSender.setPassword("Clw201807");
+
+            /**
+             * 注意：发件人和Username要保持一致，否则邮件发送不成功
+             */
             SimpleMailMessage message = new SimpleMailMessage();//消息构造器
-            message.setFrom("12123123@bytter.com");//发件人
-            message.setTo("123131321@qq.com");//收件人
+            message.setFrom("chenlw@bytter.com");//发件人
+            message.setTo("30075213@qq.com");//收件人
             message.setSubject("Spring Email Test");//主题
             message.setText("hello world!!");//正文
             mailSender.send(message);
