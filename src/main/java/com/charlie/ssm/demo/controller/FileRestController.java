@@ -17,6 +17,13 @@ import java.net.URLEncoder;
 @RequestMapping("/api/files")
 public class FileRestController {
 
+    @GetMapping("/testParam")
+    public String testHttpClientParam(@RequestParam("param") String param){
+        System.out.println("测试HttpClient参数传递");
+        System.out.println("param = "+param);
+        return param;
+    }
+
     @GetMapping("/downFile")
     public void downFile(HttpServletResponse response, @RequestParam(name = "downFilePath",required = false) String downFilePath) throws Exception {
         try {

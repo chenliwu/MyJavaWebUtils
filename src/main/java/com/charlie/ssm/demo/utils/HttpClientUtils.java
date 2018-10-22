@@ -1,9 +1,6 @@
 package com.charlie.ssm.demo.utils;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -11,6 +8,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -43,18 +42,62 @@ public class HttpClientUtils {
 
 
     public static void main(String[] args) {
-        testDownFile();
+        //testParam();
+        //testDownFile();
+        testDownFileUsingProxy();
+    }
+
+    public static void testParam() {
+        try {
+            String scheme = "http";
+            String host = "127.0.0.1:8099/MyJavaWebUtils";
+            String path = "/api/files/testParam";
+            Map<String, String> params = new HashMap<>();
+            params.put("param", "testParam");
+
+            HttpHost proxy = new HttpHost("192.168.0.84", 3128, "http");
+
+            System.out.println("response:" + get(scheme, host, path, params, proxy, connectTimeout, socketTimeout));
+
+        } catch (Exception e) {
+            System.out.println("异常：" + e.getMessage());
+        }
     }
 
     public static void testDownFile() {
         try {
             String scheme = "http";
-            String host = "127.0.0.1:8099/MyJavaWebUtils";
+            //String host = "127.0.0.1:8099/MyJavaWebUtils";
+            String host = "192.168.0.178:8099/MyJavaWebUtils";
             String path = "/api/files/downFile";
             Map<String, String> params = new HashMap<>();
             params.put("downFilePath", "downFilePath");
             String saveFileName = "saveFileName.jpg";
             downFile(scheme, host, path, params, null, connectTimeout, socketTimeout, tempFileDir, saveFileName);
+            System.out.println("下载完毕");
+        } catch (Exception e) {
+            System.out.println("异常：" + e.getMessage());
+        }
+    }
+
+
+    /**
+     * 使用代理注意事项
+     * （1）目标host要是使用具体的ip地址，如果使用localhost或者127.0.0.1的话代理服务器是识别不出来目标地址的，即代理服务器无法得知用户想要访问的URI在什么主机。
+     */
+    public static void testDownFileUsingProxy() {
+        try {
+            String scheme = "http";
+            //String host = "127.0.0.1:8099/MyJavaWebUtils";
+            String host = "192.168.0.178:8099/MyJavaWebUtils";
+            String path = "/api/files/downFile";
+            Map<String, String> params = new HashMap<>();
+            params.put("downFilePath", "downFilePath");
+            String saveFileName = "saveFileName.jpg";
+
+            HttpHost proxy = new HttpHost("192.168.0.84", 3128, "http");
+
+            downFile(scheme, host, path, params, proxy, connectTimeout, socketTimeout, tempFileDir, saveFileName);
             System.out.println("下载完毕");
         } catch (Exception e) {
             System.out.println("异常：" + e.getMessage());
@@ -92,12 +135,15 @@ public class HttpClientUtils {
 
             //构建请求配置
             RequestConfig requestConfig = initRequestConfig(proxy, connectTimeout, socketTimeout);
-
+            //构建HttpClient
+            //HttpClient httpClient = HttpClients.custom().build();
+            HttpClientBuilder httpClientBuilder = HttpClients.custom();
             if (requestConfig != null) {
-                httpGet.setConfig(requestConfig);
+                //在HttpClient设置请求配置
+                httpClientBuilder.setDefaultRequestConfig(requestConfig);
             }
+            HttpClient httpClient = httpClientBuilder.build();
 
-            HttpClient httpClient = HttpClients.custom().build();
             HttpResponse resp = httpClient.execute(httpGet);
             if (resp.getStatusLine().getStatusCode() >= 300) {
                 System.err.println("Something wrong: " + resp.getStatusLine().toString());
@@ -153,11 +199,17 @@ public class HttpClientUtils {
             //构建请求配置
             RequestConfig requestConfig = initRequestConfig(proxy, connectTimeout, socketTimeout);
 
-            HttpUriRequest request = requestBuilder
-                    .setConfig(requestConfig)
-                    .build();
+            HttpUriRequest request = requestBuilder.build();
+            HttpClientBuilder httpClientBuilder = HttpClients.custom();
+            if (requestConfig != null) {
+                //在HttpClient设置请求配置
+                if (proxy != null) {
+                    httpClientBuilder.setProxy(proxy);
+                }
+                httpClientBuilder.setDefaultRequestConfig(requestConfig);
+            }
+            HttpClient httpClient = httpClientBuilder.build();
 
-            HttpClient httpClient = HttpClients.custom().build();
             HttpResponse resp = httpClient.execute(request);
             if (resp.getStatusLine().getStatusCode() >= 300) {
                 System.err.println("Something wrong: " + resp.getStatusLine().toString());
@@ -239,14 +291,28 @@ public class HttpClientUtils {
             HttpGet httpGet = new HttpGet(uri);
             //构建请求配置
             RequestConfig requestConfig = initRequestConfig(proxy, connectTimeout, socketTimeout);
+            //构建HttpClient
+            HttpClientBuilder httpClientBuilder = HttpClients.custom();
             if (requestConfig != null) {
-                httpGet.setConfig(requestConfig);
+                //在HttpClient设置请求配置
+                if (proxy != null) {
+                    httpClientBuilder.setProxy(proxy);
+                }
+                httpClientBuilder.setDefaultRequestConfig(requestConfig);
             }
+            HttpClient httpClient = httpClientBuilder.build();
 
-            HttpClient httpClient = HttpClients.custom().build();
+            //设置请求头
+            httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+            httpGet.setHeader("Accept-Encoding", "gzip, deflate");
+            httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.8");
+            httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36");
 
             HttpResponse resp = httpClient.execute(httpGet);
             if (resp.getStatusLine().getStatusCode() >= 300) {
+                System.out.println("downFile entity:" + resp.getEntity());
+                System.out.println("downFile getStatusCode:" + resp.getStatusLine().getStatusCode());
+                System.out.println("downFile getStatusLine:" + resp.getStatusLine().toString());
                 throw new RuntimeException("Something wrong: " + resp.getStatusLine().toString());
             }
             HttpEntity entity = resp.getEntity();
@@ -276,6 +342,7 @@ public class HttpClientUtils {
             }
             out.flush();
         } catch (IOException | URISyntaxException e) {
+            System.out.println("downFile error:" + e.getMessage());
             throw new RuntimeException(e);
         } finally {
             try {
