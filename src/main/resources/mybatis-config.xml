@@ -30,13 +30,13 @@
 
     <!-- 全局别名设置，在映射文件中只需写别名，而不必写出整个类路径  -->
     <!--
-        可在springMVC配置文件添加自动扫描mapping.xml文件（<property name="mapperLocations" value="classpath:mapper/*.xml"></property>）
+        可在springMVC配置文件添加自动扫描mapping.xml文件（<property name="mapperLocations" value="classpath:dao/*.xml"></property>）
         这样就不用在MyBatis配置文件里声明mapper了。
 
         非注解的sql映射文件配置，如果使用mybatis注解，该mapper无需配置，
         但是如果mybatis注解中包含@resultMap注解，则mapper必须配置，给resultMap注解使用
     -->
     <!--<mappers>-->
-        <!--<mapper resource="mapper/UserDao.xml"/>-->
+        <!--<dao resource="dao/UserDao.xml"/>-->
     <!--</mappers>-->
 </configuration>

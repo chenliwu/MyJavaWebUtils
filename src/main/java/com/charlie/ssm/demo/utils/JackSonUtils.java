@@ -1,7 +1,6 @@
 package com.charlie.ssm.demo.utils;
 
 import com.charlie.ssm.demo.entity.UserEntity;
-import com.charlie.ssm.demo.mapper.UserMapper;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;

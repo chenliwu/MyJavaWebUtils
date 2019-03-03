@@ -5,7 +5,7 @@
     <display-name>Archetype Created Web Application</display-name>
     
     <welcome-file-list>
-        <welcome-file>/page/pages/login1.jsp</welcome-file>
+        <welcome-file>/page/pages/userInfo/add.jsp</welcome-file>
     </welcome-file-list>
 
     <!-- SpringMVC和mybatis的配置文件 -->

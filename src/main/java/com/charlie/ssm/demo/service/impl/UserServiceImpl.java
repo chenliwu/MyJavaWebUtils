@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.charlie.ssm.demo.common.entity.ResultEntity;
 import com.charlie.ssm.demo.entity.UserEntity;
-import com.charlie.ssm.demo.mapper.UserMapper;
+import com.charlie.ssm.demo.dao.UserDao;
 import com.charlie.ssm.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
  * @create 2018-06-29 9:39
  **/
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements IUserService {
+public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements IUserService {
 
 
     @Override
@@ -61,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
 
     /**************************  不使用MyBayis-Plus的写法 ****************************/
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userMapper;
 
     /**
      * 用户登录

@@ -11,7 +11,9 @@
 <html>
 <head>
     <title>用户登录</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/page/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <%--<link rel="stylesheet" href="<%=request.getContextPath()%>/page/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>--%>
+    <%--MAC--%>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/page/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/page/bootstrapvalidator-0.4.5/dist/css/bootstrapValidator.min.css" />
 </head>
 <body>
@@ -59,7 +61,8 @@
 </div>
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/page/js/jquery-2.1.0.min.js"></script>
-<script src="<%=request.getContextPath()%>/page/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<%--<script src="<%=request.getContextPath()%>/page/bootstrap-3.3.7-dist/js/bootstrap.js"></script>--%>
+<script src="<%=request.getContextPath()%>/page/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
 <script src="<%=request.getContextPath()%>/page/bootstrapvalidator-0.4.5/dist/js/bootstrapValidator.min.js"></script>
 <script>
 
@@ -82,7 +85,7 @@
                 function(data,textStatus){
                     console.log(data);
                     if(data){
-                        $(window).attr('location', '${ctx}/list');
+                        $(window).attr('location', '${ctx}/index');
                     }else{
                         alert("登录失败");
                     }
