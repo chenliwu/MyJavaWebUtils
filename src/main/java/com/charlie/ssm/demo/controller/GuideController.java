@@ -49,6 +49,13 @@ public class GuideController {
         return "page/openApp/openAppTest1";
     }
 
+    @RequestMapping(value = "/openApp1")
+    public String openApp1() {
+        //return "page/openApp/openApp";
+        return "page/openApp/openAppTest2";
+    }
+
+
     @RequestMapping(value = "/detectBrowserType")
     public String detectBrowserType() {
         return "page/openApp/detectBrowserType";

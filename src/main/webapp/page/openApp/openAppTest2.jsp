@@ -14,17 +14,10 @@
 <div class="custom-border border-color">
 
     <%--<div>--%>
-    <%--<br>--%>
-    <%--<div>--%>
-    <%--<a onclick="openApp()" href="javascript:;">打开APP（通过点击事件打开）</a>--%>
-    <%--</div>--%>
-    <%--<div>--%>
-    <%--<h4>问题记录</h4>--%>
-    <%--<div>--%>
-    <%--<p>1、IOS端在QQ内或QQ浏览器点击唤醒APP的连接，通过点击事件无法打开APP，会跳转到APP下载页面。</p>--%>
-    <%--</div>--%>
-
-    <%--</div>--%>
+        <%--<br>--%>
+        <%--<div>--%>
+            <%--<a onclick="openApp()" href="javascript:;">打开APP（APP未安装，通过点击事件打开）</a>--%>
+        <%--</div>--%>
 
     <%--</div>--%>
 
@@ -34,36 +27,11 @@
 
         <div>
             <a onclick="openApp()"
-               href="bytter-bfs-app://index?appUrl=http://192.168.0.178:8080/t2&sourceUrl=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">
-                打开APP（通过超链接的href属性打开）
+               href="myrnlinkdemo11://index">
+                打开APP（APP未安装，通过超链接的href属性打开）
             </a>
         </div>
-        <div>
-            <h4>问题记录</h4>
-            <p>1、IOS端在QQ内点击唤醒APP的连接，如果不是通过超链接的href属性，则无法打开APP，会跳转到APP下载页面；用Safari浏览器打开，则会先弹出一个询问对话框，确认后才会打开APP。</p>
-            <p>2、IOS端在QQ浏览器点击唤醒APP的连接，通过超链接的href属性无法打开APP，会跳转到APP下载页面。</p>
 
-        </div>
-
-    </div>
-    <br><br>
-
-
-    <div>
-        <h4>H5打开APP的方法</h4>
-        <div>
-            <p>
-                在H5页面打开APP的方法一般有两种，在IOS 9以前，一般使用的技术是URL Scheme。
-                这种方式虽然可自定义程度很高，能够巧妙地实现很多跳转，但弊端也很明显：我们只能通过 scheme://example
-                这种格式的链接来实现跳转，而且现在苹果还对这种方式的跳转加了一个提示框：“是否打开XXX”。
-            </p>
-            <p>
-                对于对Web和原生App交互的场景需求量很大的产品来说，这样的跳转方式显然是步骤冗杂的，用户体验并不好。
-                iOS 9 以后，Universal Links 的出现完美的解决了这个问题。它所提供的直接、顺畅、无缝衔接的跳转能够让用户体验提升一个很大的级别。
-                用户可以点击开发者指定的类似于 https://example.com/t 的URL直接唤醒App，而不需要在浏览器打开再点击其他按钮，实现真上的一键直达，无缝链接。
-            </p>
-
-        </div>
     </div>
 
 
@@ -73,8 +41,8 @@
 <script type="text/javascript">
 
     // app Scheme
-    //var appScheme = "myrnlinkdemo://index";
-    var appScheme = "bytter-bfs-app://index?appUrl=http://192.168.0.178:8080/t2&sourceUrl=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4";
+    var appScheme = "myrnlinkdemo11://index";
+    //var appScheme = "bytter-bfs-app://index?appUrl=http://192.168.0.178:8080/t2&sourceUrl=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4";
     // Android端下载地址
     var androidDownAppUrl = "https://appstore.huawei.com/app/C100444219";
     // IOS端下载地址
