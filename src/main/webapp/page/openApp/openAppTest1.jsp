@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>H5唤醒APP</title>
+    <title>H5打开APP</title>
 </head>
 
 <body>
-<h1>尝试打开APP的DEMO</h1>
+<h1>H5打开APP</h1>
 <div class="custom-border border-color">
 
     <div>
@@ -21,7 +21,7 @@
         <div>
             <h4>问题记录</h4>
             <div>
-                <p>1、IOS端在QQ浏览器点击唤醒APP的连接，通过点击事件无法打开APP，会跳转到APP下载页面。</p>
+                <p>1、IOS端在QQ内或QQ浏览器点击唤醒APP的连接，通过点击事件无法打开APP，会跳转到APP下载页面。</p>
             </div>
 
         </div>
