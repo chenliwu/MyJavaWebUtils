@@ -35,7 +35,7 @@
         <div>
             <a onclick="openApp()"
                href="bytter-bfs-app://index?appUrl=http://192.168.0.178:8080/t2&sourceUrl=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">
-                打开APP（通过超链接的href属性打开A）
+                打开APP（通过超链接的href属性打开）
             </a>
         </div>
         <div>
