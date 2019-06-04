@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>H5唤醒APP</title>
+    <title>识别浏览器类型</title>
 </head>
 
 <body>
