@@ -13,34 +13,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GuideController {
 
     @RequestMapping(value = "/testPath")
-    public String testPath(){
+    public String testPath() {
         return "page/testPath";
     }
 
 
     @RequestMapping(value = "/viewImg")
-    public String viewImg(){
+    public String viewImg() {
         return "page/viewImg";
     }
 
     @RequestMapping(value = "/testDownFile")
-    public String testDownFile(){
+    public String testDownFile() {
         return "page/testDownFile";
     }
 
     @RequestMapping(value = "/list")
-    public String list(){
+    public String list() {
         return "page/pages/user/list";
     }
 
     @RequestMapping(value = "/index")
-    public  String toMainPage(){
+    public String toMainPage() {
         return "page/index";
     }
 
     @RequestMapping(value = "/login")
-    public  String toLoginPage(){
+    public String toLoginPage() {
         return "page/pages/login1";
+    }
+
+    @RequestMapping(value = "/openApp")
+    public String openApp() {
+        //return "page/openApp/openApp";
+        return "page/openApp/openAppTest1";
     }
 
 }

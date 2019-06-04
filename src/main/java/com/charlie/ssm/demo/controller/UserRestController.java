@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenliwu
@@ -26,18 +28,36 @@ public class UserRestController {
     @Autowired
     private IUserService mIUserService;
 
+    public static Map<String, String> usernameMap = new HashMap<>();
+
+    static {
+        usernameMap.put("1", "test1");
+        usernameMap.put("2", "test2");
+        usernameMap.put("3", "test3");
+        usernameMap.put("4", "test4");
+    }
+
+    @GetMapping("/getUsernameByToken")
+    @ResponseBody
+    public Object getUsernameByToken(String token) {
+        if (token == null) {
+            //return "admin";
+            return null;
+        }
+        return usernameMap.get(token);
+    }
+
     @GetMapping("/queryPage")
     @ResponseBody
-    public Page<UserEntity> queryPage(UserEntity userEntity,@PageableDefault Page<UserEntity> page){
-        return  mIUserService.queryPage(userEntity,page);
+    public Page<UserEntity> queryPage(UserEntity userEntity, @PageableDefault Page<UserEntity> page) {
+        return mIUserService.queryPage(userEntity, page);
     }
 
     @GetMapping("/queryList")
     @ResponseBody
-    public List<UserEntity> queryList(UserEntity userEntity, @PageableDefault Page<UserEntity> page){
-        return  mIUserService.queryPage(userEntity,page).getRecords();
+    public List<UserEntity> queryList(UserEntity userEntity, @PageableDefault Page<UserEntity> page) {
+        return mIUserService.queryPage(userEntity, page).getRecords();
     }
-
 
 
     @RequestMapping(value = "/login1")
