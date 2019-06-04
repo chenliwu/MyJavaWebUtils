@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>H5唤醒APP-1</title>
+    <title>H5唤醒APP</title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
 
     <div>
         <br>
-        <button onclick="openApp()">打开APP》》</button>
+        <a onclick="openApp()" href="javascript:;">打开APP>></a>
     </div>
     <br>
 </div>
@@ -39,7 +39,7 @@
         "host": ""
     };
 
-    var timeout = 3000;
+    var timeout = 2000;
 
 
     function openApp() {
@@ -101,9 +101,7 @@
                     }
                 }, timeout);
             }
-        }
-
-        if (ifiPhone) {
+        } else if (ifiPhone) {
             var universalUrl = "https://itunes.apple.com/cn/app/id1253355672?mt=8";
             if (ifWeixin) {
                 // 微信屏蔽了APP Scheme，在微信当中无法直接打开APP，因此要通过universalUrl。
@@ -140,6 +138,9 @@
                     window.location.href = iosDownAppUrl;
                 }
             }, timeout);
+        }else{
+            alert('请在移动端（IOS/Android）浏览器打开。');
+            return;
         }
 
         // 当页面在后台运行时清空定时器防止页面跳转到下载页
