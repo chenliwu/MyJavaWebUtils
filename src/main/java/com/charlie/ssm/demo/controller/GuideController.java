@@ -49,4 +49,10 @@ public class GuideController {
         return "page/openApp/openAppTest1";
     }
 
+    @RequestMapping(value = "/detectBrowserType")
+    public String detectBrowserType() {
+        return "page/openApp/detectBrowserType";
+    }
+
+
 }

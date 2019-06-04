@@ -15,13 +15,36 @@
 
     <div>
         <br>
-        <a onclick="openApp()" href="javascript:;">打开APP>></a>
+        <div>
+            <a onclick="openApp()" href="javascript:;">打开APP（通过点击事件打开）</a>
+        </div>
+        <div>
+            <h4>问题记录</h4>
+            <div>
+                <p>1、IOS端在QQ浏览器点击唤醒APP的连接，通过点击事件无法打开APP，会跳转到APP下载页面。</p>
+            </div>
+
+        </div>
+
     </div>
 
+    <br><br>
     <div>
         <br>
-        <a onclick="openApp()"
-           href="bytter-bfs-app://index?appUrl=http://192.168.0.178:8080/t2&sourceUrl=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">IOS端打开APP</a>
+
+        <div>
+            <a onclick="openApp()"
+               href="bytter-bfs-app://index?appUrl=http://192.168.0.178:8080/t2&sourceUrl=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">
+                打开APP（通过超链接的href属性打开A）
+            </a>
+        </div>
+        <div>
+            <h4>问题记录</h4>
+            <p>1、IOS端在QQ内点击唤醒APP的连接，如果不是通过超链接的href属性，则无法打开APP，会跳转到APP下载页面；用Safari浏览器打开，则会先弹出一个询问对话框，确认后才会打开APP。</p>
+            <p>2、IOS端在QQ浏览器点击唤醒APP的连接，通过超链接的href属性无法打开APP，会跳转到APP下载页面。</p>
+
+        </div>
+
     </div>
     <br>
 </div>
