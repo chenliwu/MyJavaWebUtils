@@ -14,7 +14,6 @@
 <div class="custom-border border-color">
 
     <div>
-        <%--<a id="tryOpenAppElement" href="javascript:;">尝试打开APP</a>--%>
         <br>
         <button onclick="openApp()">打开APP》》</button>
     </div>
@@ -24,13 +23,27 @@
 
 <script type="text/javascript">
 
+    // app Scheme
     var appScheme = "myrnlinkdemo://index";
+    // Android端下载地址
     var androidDownUrl = "https://appstore.huawei.com/app/C100444219";
+    // IOS端下载地址
     var iosDownUrl = "https://itunes.apple.com/cn/app/id1253355672?mt=8";
+
+    // 由安卓APP提供
+    var AppConfig = {
+        "scheme": "myrnlinkdemo",
+        "package": "com.xxx.aos.aosdemo",
+        "action": "android.intent.action.VIEW",
+        "category": "android.intent.category.BROWSABLE",
+        "host": ""
+    };
+
 
     function openApp() {
         // 判断浏览器
         var Navigator = navigator.userAgent;
+        var ifChrome = Navigator.match(/Chrome/i) != null && Navigator.match(/Version\/\d+\.\d+(\.\d+)?\sChrome\//i) == null ? true : false;
         var ifAndroid = (Navigator.match(/(Android);?[\s\/]+([\d.]+)?/)) ? true : false;
         var ifiPad = (Navigator.match(/(iPad).*OS\s([\d_]+)/)) ? true : false;
         var ifiPhone = (!ifiPad && Navigator.match(/(iPhone\sOS)\s([\d_]+)/)) ? true : false;
@@ -44,15 +57,36 @@
 
         var loadTimer;
 
+        // android打开app 地址
+        function getAndroidSchema() {
+            var schemaStr = 'www.xxx.com/open?a=test';
+            if (ifChrome) {
+                schemaStr = "intent://" + schemaStr + "#Intent;" +
+                    "scheme=" + AppConfig.scheme + ";" +
+                    "package=" + AppConfig.package + ";" +
+                    "category=" + AppConfig.category + ";" +
+                    "S.browser_fallback_url=" + encodeURIComponent(AppConfig.FAILBACK_ANDROID) + ";" +
+                    "end";
+            } else {
+                schemaStr = appScheme;
+            }
+            return schemaStr;
+        }
+
+
         if (ifAndroid) {
-            if (ifWeixin) {
+            var androidScheme = getAndroidSchema();
+            if (ifChrome) {
+                // chrome会自动识别S.browser_fallback_url如果没有安装则打开下载链接地址
+                window.location.href = androidScheme;
+            } else if (ifWeixin) {
                 // 微信无法打开APP，跳转到下载页面
-                //window.location.href = androidDownUrl;
+                // window.location.href = androidDownUrl;
                 alert('微信无法打开APP，请切换其他浏览器');
                 return;
             } else {
                 // 其他浏览器3秒内没打开则跳转到下载链接
-                window.location.href = appScheme;
+                window.location.href = androidScheme;
                 var start = Date.now();
                 // 如果页面在后台运行返回，如果超过3秒没有打开APP，则没有安装，跳转到应用市场
                 loadTimer = setTimeout(function () {
@@ -70,7 +104,8 @@
         if (ifiPhone) {
             var universalUrl = "https://itunes.apple.com/cn/app/id1253355672?mt=8";
             if (ifWeixin) {
-                // 微信屏蔽了app shceme，在微信当中无法直接打开APP，因此要通过universalUrl。
+                // 微信屏蔽了APP Scheme，在微信当中无法直接打开APP，因此要通过universalUrl。
+                // 如果APP没有universalUrl，则提示用户无法在微信当中打开APP
                 //window.location.href = universalUrl;
                 alert('微信无法打开APP，请切换其他浏览器');
                 return;
