@@ -26,9 +26,9 @@
     // app Scheme
     var appScheme = "myrnlinkdemo://index";
     // Android端下载地址
-    var androidDownUrl = "https://appstore.huawei.com/app/C100444219";
+    var androidDownAppUrl = "https://appstore.huawei.com/app/C100444219";
     // IOS端下载地址
-    var iosDownUrl = "https://itunes.apple.com/cn/app/id1253355672?mt=8";
+    var iosDownAppUrl = "https://itunes.apple.com/cn/app/id1253355672?mt=8";
 
     // 由安卓APP提供
     var AppConfig = {
@@ -39,21 +39,23 @@
         "host": ""
     };
 
+    var timeout = 3000;
+
 
     function openApp() {
         // 判断浏览器
-        var Navigator = navigator.userAgent;
-        var ifChrome = Navigator.match(/Chrome/i) != null && Navigator.match(/Version\/\d+\.\d+(\.\d+)?\sChrome\//i) == null ? true : false;
-        var ifAndroid = (Navigator.match(/(Android);?[\s\/]+([\d.]+)?/)) ? true : false;
-        var ifiPad = (Navigator.match(/(iPad).*OS\s([\d_]+)/)) ? true : false;
-        var ifiPhone = (!ifiPad && Navigator.match(/(iPhone\sOS)\s([\d_]+)/)) ? true : false;
-        var ifSafari = (ifiPhone || ifiPad) && Navigator.match(/Safari/);
+        var userAgent = navigator.userAgent;
+        var ifChrome = userAgent.match(/Chrome/i) != null && userAgent.match(/Version\/\d+\.\d+(\.\d+)?\sChrome\//i) == null ? true : false;
+        var ifAndroid = (userAgent.match(/(Android);?[\s\/]+([\d.]+)?/)) ? true : false;
+        var ifiPad = (userAgent.match(/(iPad).*OS\s([\d_]+)/)) ? true : false;
+        var ifiPhone = (!ifiPad && userAgent.match(/(iPhone\sOS)\s([\d_]+)/)) ? true : false;
+        var ifSafari = (ifiPhone || ifiPad) && userAgent.match(/Safari/);
         var version = 0;
-        ifSafari && (version = Navigator.match(/Version\/([\d\.]+)/));
+        ifSafari && (version = userAgent.match(/Version\/([\d\.]+)/));
         // safari浏览器版本
         version = parseFloat(version[1], 10);
         // 是否从微信打开
-        var ifWeixin = navigator.userAgent.indexOf("MicroMessenger") >= 0; // weixin
+        var ifWeixin = userAgent.indexOf("MicroMessenger") >= 0;
 
         var loadTimer;
 
@@ -65,7 +67,7 @@
                     "scheme=" + AppConfig.scheme + ";" +
                     "package=" + AppConfig.package + ";" +
                     "category=" + AppConfig.category + ";" +
-                    "S.browser_fallback_url=" + encodeURIComponent(AppConfig.FAILBACK_ANDROID) + ";" +
+                    "S.browser_fallback_url=" + encodeURIComponent(androidDownAppUrl) + ";" +
                     "end";
             } else {
                 schemaStr = appScheme;
@@ -82,7 +84,7 @@
             } else if (ifWeixin) {
                 // 微信无法打开APP，跳转到下载页面
                 // window.location.href = androidDownUrl;
-                alert('微信无法打开APP，请切换其他浏览器');
+                alert('在微信中无法打开APP，请切换其他浏览器。');
                 return;
             } else {
                 // 其他浏览器3秒内没打开则跳转到下载链接
@@ -93,11 +95,11 @@
                     if (document.hidden || document.webkitHidden) {
                         return;
                     }
-                    if (Date.now() - start <= 3000 + 200) {
-                        window.location.href = androidDownUrl;
+                    if (Date.now() - start <= timeout + 200) {
+                        window.location.href = androidDownAppUrl;
                     } else {
                     }
-                }, 3000);
+                }, timeout);
             }
         }
 
@@ -107,14 +109,14 @@
                 // 微信屏蔽了APP Scheme，在微信当中无法直接打开APP，因此要通过universalUrl。
                 // 如果APP没有universalUrl，则提示用户无法在微信当中打开APP
                 //window.location.href = universalUrl;
-                alert('微信无法打开APP，请切换其他浏览器');
+                alert('在微信中无法打开APP，请切换其他浏览器。');
                 return;
             }
 
             if (ifSafari && version >= 9) {
                 // 判断IOS版本 如果大于9
                 setTimeout(function () {
-                    // 必须要使用settimeout
+                    // 必须要使用setTimeout
                     var ar = document.createElement("a");
                     ar.setAttribute("href", appScheme);
                     ar.style.display = "none";
@@ -126,17 +128,18 @@
             } else {
                 window.location.href = appScheme;
             }
+            var start = Date.now();
             // 如果页面在后台运行返回，如果超过3秒没有打开APP，则没有安装，跳转到IOS应用市场
             loadTimer = setTimeout(function () {
                 if (document.hidden || document.webkitHidden) {
                     return;
                 }
-                if (Date.now() - start > 3000 + 200) {
+                if (Date.now() - start > timeout + 200) {
 
                 } else {
-                    window.location.href = iosDownUrl;
+                    window.location.href = iosDownAppUrl;
                 }
-            }, 3000);
+            }, timeout);
         }
 
         // 当页面在后台运行时清空定时器防止页面跳转到下载页
@@ -147,7 +150,7 @@
         document.addEventListener('visibilitychange', visibilitychange, false);
         document.addEventListener("webkitvisibilitychange", visibilitychange, false);
         window.addEventListener("pagehide", function () {
-            clearTimeout(loadTimer);
+            window.clearTimeout(loadTimer);
         }, false);
 
     }
