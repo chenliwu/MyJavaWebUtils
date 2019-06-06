@@ -45,8 +45,7 @@ public class GuideController {
 
     @RequestMapping(value = "/openApp")
     public String openApp() {
-        //return "page/openApp/openApp";
-        return "page/openApp/openAppTest1";
+        return "page/openApp/openApp";
     }
 
     @RequestMapping(value = "/openApp1")

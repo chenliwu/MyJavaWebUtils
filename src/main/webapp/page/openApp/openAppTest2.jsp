@@ -42,7 +42,7 @@
 
     // app Scheme
     var appScheme = "myrnlinkdemo11://index";
-    //var appScheme = "bytter-bfs-app://index?appUrl=http://192.168.0.178:8080/t2&sourceUrl=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4";
+    //var appScheme = "bytter-bfs-app://index?appServerAddress=http://192.168.0.178:8080/t2&sourceUrl=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4";
     // Android端下载地址
     var androidDownAppUrl = "https://appstore.huawei.com/app/C100444219";
     // IOS端下载地址
