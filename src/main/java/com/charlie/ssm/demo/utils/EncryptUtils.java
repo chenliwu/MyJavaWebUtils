@@ -11,7 +11,6 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 import org.apache.commons.lang.StringUtils;
-import sun.misc.BASE64Decoder;
 
 /**
  * Created by chenlw on 2019/06/10  19:11.
@@ -27,12 +26,19 @@ public class EncryptUtils {
     private static String KEY = String.valueOf((new Date()).getTime());
 
     /**
+     * 加解密算法/工作模式/填充方式
      * 算法
      */
     private static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";
 
     public static void main(String[] args) throws Exception {
-        KEY = getKey();
+        test2();
+    }
+
+
+    public static void test1() throws Exception {
+        String timestamp = String.valueOf((new Date()).getTime());
+        final String KEY = getKey(timestamp);
         String content = "http://192.168.0.178:8080/t2";
         System.out.println("加密前：" + content);
 
@@ -45,21 +51,30 @@ public class EncryptUtils {
         System.out.println("解密后：" + decrypt);
     }
 
+
+    public static void test2() throws Exception {
+        String content = "http://192.168.0.178:8080/t2";
+        System.out.println("Base64编码前：" + content);
+        String base64 = base64Encode(content.getBytes());
+        System.out.println("Base64编码后：" + base64);
+        System.out.println("Base64解码：" + base64Decode(base64));
+    }
+
     /**
      * AES加密算法的KEY为16位或者32位
      *
      * @return
      */
-    public static String getKey() {
+    public static String getKey(String timestamp) {
         // AES加密算法的KEY为16位或者32位
         int keyLength = 16;
         // 使用当前时间作为种子
-        String base = String.valueOf((new Date()).getTime());
+        //String base = String.valueOf((new Date()).getTime());
         Random random = new Random();
         StringBuffer key = new StringBuffer();
         for (int i = 0; i < keyLength; i++) {
-            int number = random.nextInt(base.length());
-            key.append(base.charAt(number));
+            int number = random.nextInt(timestamp.length());
+            key.append(timestamp.charAt(number));
         }
         return key.toString();
     }
@@ -98,7 +113,7 @@ public class EncryptUtils {
     }
 
     /**
-     * base 64 encode
+     * Base64编码
      *
      * @param bytes 待编码的byte[]
      * @return 编码后的base 64 code
@@ -108,14 +123,16 @@ public class EncryptUtils {
     }
 
     /**
-     * base 64 decode
+     * Base64解码
      *
      * @param base64Code 待解码的base 64 code
-     * @return 解码后的byte[]
+     * @return 解码后的String
      * @throws Exception
      */
-    public static byte[] base64Decode(String base64Code) throws Exception {
-        return StringUtils.isEmpty(base64Code) ? null : new BASE64Decoder().decodeBuffer(base64Code);
+    public static String base64Decode(String base64Code) throws Exception {
+        //return StringUtils.isEmpty(base64Code) ? null : new BASE64Decoder().decodeBuffer(base64Code);
+        return StringUtils.isEmpty(base64Code) ? null : new String(Base64.decodeBase64(base64Code));
+
     }
 
 
@@ -178,7 +195,7 @@ public class EncryptUtils {
      * @throws Exception
      */
     public static String aesDecrypt(String encryptStr, String decryptKey) throws Exception {
-        return StringUtils.isEmpty(encryptStr) ? null : aesDecryptByBytes(base64Decode(encryptStr), decryptKey);
+        return StringUtils.isEmpty(encryptStr) ? null : aesDecryptByBytes(base64Decode(encryptStr).getBytes(), decryptKey);
     }
 
 }

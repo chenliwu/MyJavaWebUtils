@@ -2,6 +2,9 @@ package com.charlie.ssm.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
 
 /**
  * 导航Controller
@@ -44,7 +47,11 @@ public class GuideController {
     }
 
     @RequestMapping(value = "/openApp")
-    public String openApp() {
+    public String openApp(ModelAndView model) {
+        String timestamp = String.valueOf((new Date()).getTime());
+        String appServerAddress = "http://192.168.0.178:8080/t2";
+
+        //String openAppUrlScheme = String.format("bytter-bfs-app://index?appServerAddress=%s&token=test4", )
         return "page/openApp/openApp";
     }
 
