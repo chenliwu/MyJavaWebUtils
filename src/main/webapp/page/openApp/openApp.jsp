@@ -34,6 +34,14 @@
                 打开APP（URL Scheme携带了登录名）
             </a>
         </div>
+        <br>
+
+        <div>
+            <a onclick="openApp()"
+               href="bytter-bfs-app://index/sso?appServerAddress=1212313213&username=1232323">
+                打开APP
+            </a>
+        </div>
 
 
     </div>
