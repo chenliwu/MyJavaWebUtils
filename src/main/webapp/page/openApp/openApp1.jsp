@@ -18,16 +18,6 @@
         <br>
 
         <div>
-            <%--<a onclick="openApp()"--%>
-            <%--href="bytter-bfs-app://index?appServerAddress=http://192.168.0.178:8080/t2&tokenServerAddress=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">--%>
-            <%--打开APP（测试正常单点登录：URL Scheme携带token+tokenServerAddress）--%>
-            <%--</a>--%>
-
-            <%--<a onclick="openApp()"--%>
-            <%--href="bytter-bfs-app://index?appServerAddress=http://192.168.0.178:8080/t2&token=4">--%>
-            <%--打开APP（测试正常单点登录：URL Scheme携带token）--%>
-            <%--</a>--%>
-
             <a onclick="openApp()"
                href="${openAppUrlScheme}">
                 打开APP（测试正常单点登录：URL Scheme携带token）
@@ -37,48 +27,7 @@
 
 
         <br>
-        <div>
-            <a onclick="openApp()"
-               href="bytter-bfs-app://index?appServerAddress=http://192.168.0.178:8080/t2&username=test22&tokenServerAddress=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">
-                打开APP（测试正常单点登录，URL Scheme携带username）
-            </a>
-        </div>
 
-
-        <br>
-        <div>
-            <a onclick="openApp()"
-               href="bytter-bfs-app://index?appServerAddress=http://192.168.0.178:808/t2&tokenServerAddress=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">
-                打开APP（测试不正常单点登录）
-            </a>
-        </div>
-
-        <div>
-            <h4>问题记录</h4>
-            <p>1、IOS端在QQ内点击唤醒APP的连接，如果不是通过超链接的href属性，则无法打开APP，会跳转到APP下载页面；用Safari浏览器打开，则会先弹出一个询问对话框，确认后才会打开APP。</p>
-            <p>2、IOS端在QQ浏览器点击唤醒APP的连接，通过超链接的href属性无法打开APP，会跳转到APP下载页面。</p>
-
-        </div>
-
-    </div>
-    <br><br>
-
-
-    <div>
-        <h4>H5打开APP的方法</h4>
-        <div>
-            <p>
-                在H5页面打开APP的方法一般有两种，在IOS 9以前，一般使用的技术是URL Scheme。
-                这种方式虽然可自定义程度很高，能够巧妙地实现很多跳转，但弊端也很明显：我们只能通过 scheme://example
-                这种格式的链接来实现跳转，而且现在苹果还对这种方式的跳转加了一个提示框：“是否打开XXX”。
-            </p>
-            <p>
-                对于对Web和原生App交互的场景需求量很大的产品来说，这样的跳转方式显然是步骤冗杂的，用户体验并不好。
-                iOS 9 以后，Universal Links 的出现完美的解决了这个问题。它所提供的直接、顺畅、无缝衔接的跳转能够让用户体验提升一个很大的级别。
-                用户可以点击开发者指定的类似于 https://example.com/t 的URL直接唤醒App，而不需要在浏览器打开再点击其他按钮，实现真上的一键直达，无缝链接。
-            </p>
-
-        </div>
     </div>
 
 
@@ -239,22 +188,7 @@
     var openAppUrlSchemeBase64 = "${openAppUrlSchemeBase64}";
 
     window.onload = function (ev) {
-        console.log('打开APP的URL Scheme：', openAppUrlScheme);
-        var params = getUrlParamsToJSON(openAppUrlScheme);
-        var appServerAddress;
-        if (params && params['appServerAddress'] && params['timestamp']) {
-            appServerAddress = params['appServerAddress'];
-            var timestamp = params['timestamp'];
-            console.log('timestamp:',timestamp);
-            console.log('解密前的appServerAddress：', appServerAddress);
-            //appServerAddress = base64Decode(appServerAddress);
-            appServerAddress = decryptParam(base64Decode(appServerAddress), timestamp);
-            console.log('解密后的appServerAddress：', appServerAddress);
-        }
 
-        console.log('');
-        console.log('解码前的openAppUrlSchemeBase64：',openAppUrlSchemeBase64);
-        console.log('解码后的openAppUrlSchemeBase64：',base64Decode(openAppUrlSchemeBase64));
     };
 
 
@@ -279,20 +213,19 @@
     }
 
 
+    // 加密
+    function encryptParam(param, AESKey) {
+        var ciphertext = CryptoJS.AES.encrypt(param, AESKey).toString();
+        return ciphertext;
+    }
 
 
-
-    // // 解密
-    // function decryptParam(param, AESKey) {
-    //     var key = CryptoJS.enc.Utf8.parse(AESKey);
-    //     var decrypt = CryptoJS.AES.decrypt(param, key, {
-    //         mode: CryptoJS.mode.ECB,
-    //         padding: CryptoJS.pad.Pkcs7
-    //     });
-    //     var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
-    //     return decryptedStr.toString();
-    //     //return CryptoJS.enc.Utf8.stringify(decrypt).toString();
-    // }
+    // 解密
+    function decryptParam(ciphertext, AESKey) {
+        var bytes  = CryptoJS.AES.decrypt(ciphertext, AESKey);
+        var originalText = bytes.toString(CryptoJS.enc.Utf8);
+        return originalText;
+    }
 
 </script>
 

@@ -1,9 +1,13 @@
 package com.charlie.ssm.demo.controller;
 
+import com.charlie.ssm.demo.utils.EncryptUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+//import java.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import java.util.Date;
 
 /**
@@ -47,11 +51,15 @@ public class GuideController {
     }
 
     @RequestMapping(value = "/openApp")
-    public String openApp(ModelAndView model) {
+    public String openApp(Model model) throws Exception{
         String timestamp = String.valueOf((new Date()).getTime());
         String appServerAddress = "http://192.168.0.178:8080/t2";
-
-        //String openAppUrlScheme = String.format("bytter-bfs-app://index?appServerAddress=%s&token=test4", )
+        String encrypAppServerAddress = EncryptUtils.aesEncryptParams(appServerAddress,timestamp);
+        String openAppUrlScheme = String.format("bytter-bfs-app://index?appServerAddress=%s&token=test4&timestamp=%s",
+                encrypAppServerAddress,timestamp);
+        model.addAttribute("openAppUrlScheme",openAppUrlScheme);
+        //model.addAttribute("openAppUrlSchemeBase64", Base64.getEncoder().encodeToString(openAppUrlScheme.getBytes()));
+        model.addAttribute("openAppUrlSchemeBase64", Base64.encodeBase64String(openAppUrlScheme.getBytes()));
         return "page/openApp/openApp";
     }
 
