@@ -1,13 +1,14 @@
 package com.charlie.ssm.demo.controller;
 
-import com.charlie.ssm.demo.utils.EncryptUtils;
+import com.charlie.ssm.demo.utils.AESUtils;
+import com.charlie.ssm.demo.utils.BytterBfsAppUrlSchemeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 //import java.util.Base64;
 import org.apache.commons.codec.binary.Base64;
+
 import java.util.Date;
 
 /**
@@ -51,22 +52,30 @@ public class GuideController {
     }
 
     @RequestMapping(value = "/openApp")
-    public String openApp(Model model) throws Exception{
-        String timestamp = String.valueOf((new Date()).getTime());
+    public String openApp(Model model) throws Exception {
         String appServerAddress = "http://192.168.0.178:8080/t2";
-        String encrypAppServerAddress = EncryptUtils.aesEncryptParams(appServerAddress,timestamp);
-        String openAppUrlScheme = String.format("bytter-bfs-app://index?appServerAddress=%s&token=test4&timestamp=%s",
-                encrypAppServerAddress,timestamp);
-        model.addAttribute("openAppUrlScheme",openAppUrlScheme);
-        //model.addAttribute("openAppUrlSchemeBase64", Base64.getEncoder().encodeToString(openAppUrlScheme.getBytes()));
-        model.addAttribute("openAppUrlSchemeBase64", Base64.encodeBase64String(openAppUrlScheme.getBytes()));
+        String token = "test4";
+        String openAppUrlScheme = BytterBfsAppUrlSchemeUtils.getOpenAppUrlSchemeByToken(appServerAddress,token);
+        model.addAttribute("openAppUrlScheme", openAppUrlScheme);
         return "page/openApp/openApp";
     }
 
+
+
+
     @RequestMapping(value = "/openApp1")
-    public String openApp1() {
-        //return "page/openApp/openApp";
-        return "page/openApp/openAppTest2";
+    public String openApp1(Model model) throws Exception {
+        // timestamp作为加密和解密的密匙
+        String timestamp = AESUtils.getKey(String.valueOf((new Date()).getTime()));
+        String appServerAddress = "http://192.168.0.178:8080/t2";
+
+        String encrypAppServerAddress = Base64.encodeBase64String(AESUtils.encryptAES(appServerAddress, timestamp).getBytes());
+        //String encrypAppServerAddress = AESUtils.encryptAES(appServerAddress, timestamp);
+
+        String openAppUrlScheme = String.format("bytter-bfs-app://index?appServerAddress=%s&token=test4&timestamp=%s",
+                encrypAppServerAddress, timestamp);
+        model.addAttribute("openAppUrlScheme", openAppUrlScheme);
+        return "page/openApp/openApp1";
     }
 
 

@@ -18,7 +18,8 @@
         <br>
 
         <div>
-            <a onclick="openApp()"
+            <a id="openAppLinkElement"
+               onclick="openApp()"
                href="${openAppUrlScheme}">
                 打开APP（测试正常单点登录：URL Scheme携带token）
             </a>
@@ -140,14 +141,6 @@
                     ar.dispatchEvent(av);
                 }, 0);
 
-//                var ifr = document.createElement('iframe');
-//                ifr.src = appScheme;
-//                ifr.style.display = 'none';
-//                document.body.appendChild(ifr);
-//                window.setTimeout(function () {
-//                    document.body.removeChild(ifr);
-//                }, timeout);
-
             } else {
                 window.location.href = appScheme;
             }
@@ -185,11 +178,49 @@
     ////////////测试URL参数加密
 
     var openAppUrlScheme = "${openAppUrlScheme}";
-    var openAppUrlSchemeBase64 = "${openAppUrlSchemeBase64}";
 
     window.onload = function (ev) {
+        var params = getUrlParamsToJSON(openAppUrlScheme);
+        console.log('openAppUrlScheme:', openAppUrlScheme);
+        var appServerAddress;
+        if (params && params['appServerAddress'] && params['timestamp']) {
+            appServerAddress = params['appServerAddress'];
+            var timestamp = params['timestamp'];
+            console.log('timestamp:', timestamp);
+            console.log('解密前的appServerAddress：', appServerAddress);
+            appServerAddress = decryptParam(base64Decode(appServerAddress), timestamp);
+            console.log('解密后的appServerAddress：', appServerAddress);
+       }
 
+        //testAES();
+        //testBase64Encode();
     };
+
+    /**
+     * URL参数使用AES加密
+     */
+    function testAES() {
+        var address = 'app server address';
+        //timestamp作为加密和解密的密匙
+        var timestamp = (new Date()).getTime().toString();
+        //AES加密
+        var encryptAddress = encryptParam(address, timestamp);
+
+        var href = 'myrnlinkdemo://index?address=' + encryptAddress+'&timestamp='+timestamp;
+        document.getElementById('openAppLinkElement').href = href;
+    }
+
+    /**
+     * URL参数使用base64编码
+     */
+    function testBase64Encode() {
+        var address = 'app server address';
+
+        //base 64转码
+        var base64Address = base64Encode(address);
+        var href = 'myrnlinkdemo://index?address=' + base64Address;
+        document.getElementById('openAppLinkElement').href = href;
+    }
 
 
     // 获取URL的查询参数
@@ -205,8 +236,9 @@
         return params;
     }
 
-
-    /////解密URL参数
+    function base64Encode(str) {
+        return btoa(encodeURIComponent(str));
+    }
 
     function base64Decode(str) {
         return decodeURIComponent(atob(str));
@@ -222,7 +254,7 @@
 
     // 解密
     function decryptParam(ciphertext, AESKey) {
-        var bytes  = CryptoJS.AES.decrypt(ciphertext, AESKey);
+        var bytes = CryptoJS.AES.decrypt(ciphertext, AESKey);
         var originalText = bytes.toString(CryptoJS.enc.Utf8);
         return originalText;
     }

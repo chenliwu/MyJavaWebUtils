@@ -18,17 +18,8 @@
         <br>
 
         <div>
-            <%--<a onclick="openApp()"--%>
-            <%--href="bytter-bfs-app://index?appServerAddress=http://192.168.0.178:8080/t2&tokenServerAddress=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">--%>
-            <%--打开APP（测试正常单点登录：URL Scheme携带token+tokenServerAddress）--%>
-            <%--</a>--%>
-
-            <%--<a onclick="openApp()"--%>
-            <%--href="bytter-bfs-app://index?appServerAddress=http://192.168.0.178:8080/t2&token=4">--%>
-            <%--打开APP（测试正常单点登录：URL Scheme携带token）--%>
-            <%--</a>--%>
-
-            <a onclick="openApp()"
+            <a id="openAppLinkElement1"
+                    onclick="openApp()"
                href="${openAppUrlScheme}">
                 打开APP（测试正常单点登录：URL Scheme携带token）
             </a>
@@ -38,8 +29,9 @@
 
         <br>
         <div>
-            <a onclick="openApp()"
-               href="bytter-bfs-app://index?appServerAddress=http://192.168.0.178:8080/t2&username=test22&tokenServerAddress=http://192.168.0.178:8088/webUtils/api/user/getUsernameByToken&token=4">
+            <a id="openAppLinkElement2"
+               onclick="openApp()"
+               href="">
                 打开APP（测试正常单点登录，URL Scheme携带username）
             </a>
         </div>
@@ -84,8 +76,6 @@
 
 </div>
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/page/crypto-js-3.1.9-1/crypto-js.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/page/crypto-js-3.1.9-1/aes.js"></script>
 <script type="text/javascript">
 
     // app Scheme
@@ -191,14 +181,6 @@
                     ar.dispatchEvent(av);
                 }, 0);
 
-//                var ifr = document.createElement('iframe');
-//                ifr.src = appScheme;
-//                ifr.style.display = 'none';
-//                document.body.appendChild(ifr);
-//                window.setTimeout(function () {
-//                    document.body.removeChild(ifr);
-//                }, timeout);
-
             } else {
                 window.location.href = appScheme;
             }
@@ -233,66 +215,58 @@
     }
 
 
-    ////////////测试URL参数加密
-
-    var openAppUrlScheme = "${openAppUrlScheme}";
-    var openAppUrlSchemeBase64 = "${openAppUrlSchemeBase64}";
-
     window.onload = function (ev) {
-        console.log('打开APP的URL Scheme：', openAppUrlScheme);
-        var params = getUrlParamsToJSON(openAppUrlScheme);
-        var appServerAddress;
-        if (params && params['appServerAddress'] && params['timestamp']) {
-            appServerAddress = params['appServerAddress'];
-            var timestamp = params['timestamp'];
-            console.log('timestamp:',timestamp);
-            console.log('解密前的appServerAddress：', appServerAddress);
-            //appServerAddress = base64Decode(appServerAddress);
-            appServerAddress = decryptParam(base64Decode(appServerAddress), timestamp);
-            console.log('解密后的appServerAddress：', appServerAddress);
-        }
-
-        console.log('');
-        console.log('解码前的openAppUrlSchemeBase64：',openAppUrlSchemeBase64);
-        console.log('解码后的openAppUrlSchemeBase64：',base64Decode(openAppUrlSchemeBase64));
+        jsEncodeUrlSchemeParams();
     };
 
-
-    // 获取URL的查询参数
-    // 将参数转化成JSON对象：如果URL没有携带参数，则JSON对象为{}
-    function getUrlParamsToJSON(url) {
-        var params = new Map();
-        //去除所有空格
-        url = url.replace(/\s/ig, '');
-        //正则表达式匹配
-        url.replace(/([^?&=]+)=([^&]+)/g, function (_, key, value) {
-            params[key] = value;
-        });
-        return params;
+    /**
+     * JS端对URL Scheme参数加密
+     */
+    function jsEncodeUrlSchemeParams() {
+        var appServerAddress = 'http://192.168.0.178:8080/t2';
+        var token = 'test4';
+        var username = 'test4';
+        var openAppURLScheme1 = getOpenAppUrlSchemeByToken(appServerAddress,token);
+        var openAppURLScheme2 = getOpenAppUrlSchemeByUsername(appServerAddress,username);
+        document.getElementById('openAppLinkElement1').href = openAppURLScheme1;
+        document.getElementById('openAppLinkElement2').href = openAppURLScheme2;
     }
 
 
-    /////解密URL参数
 
+    function getOpenAppUrlSchemeByToken(appServerAddress,token) {
+        var openAppURLScheme = 'bytter-bfs-app://index/sso?appServerAddress='+base64Encode(appServerAddress)+
+            '&token='+base64Encode(token);
+        return openAppURLScheme;
+    }
+
+    /**
+     * 获取通过username实现单点登录的URL Scheme
+     */
+    function getOpenAppUrlSchemeByUsername(appServerAddress,username) {
+        var openAppURLScheme = 'bytter-bfs-app://index/sso?appServerAddress='+base64Encode(appServerAddress)+
+            '&username='+base64Encode(username);
+        return openAppURLScheme;
+    }
+
+
+    /**
+     * base64编码
+     * @param str
+     */
+    function base64Encode(str) {
+        return btoa(encodeURIComponent(str));
+    }
+
+    /**
+     * base64解码
+     * @param str
+     * @returns {string}
+     */
     function base64Decode(str) {
         return decodeURIComponent(atob(str));
     }
 
-
-
-
-
-    // // 解密
-    // function decryptParam(param, AESKey) {
-    //     var key = CryptoJS.enc.Utf8.parse(AESKey);
-    //     var decrypt = CryptoJS.AES.decrypt(param, key, {
-    //         mode: CryptoJS.mode.ECB,
-    //         padding: CryptoJS.pad.Pkcs7
-    //     });
-    //     var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
-    //     return decryptedStr.toString();
-    //     //return CryptoJS.enc.Utf8.stringify(decrypt).toString();
-    // }
 
 </script>
 
