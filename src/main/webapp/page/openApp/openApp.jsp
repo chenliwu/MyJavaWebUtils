@@ -170,7 +170,7 @@
     function jsEncodeUrlSchemeParams() {
         var appServerAddress = 'http://192.168.0.178:8080/t2';
         var token = 'test4';
-        var username = 'test4';
+        var username = 'test22';
 
         var timestamp = (new Date()).getTime().toString();
 
@@ -201,6 +201,11 @@
     function getOpenAppUrlSchemeByUsername(appServerAddress, username, timestamp) {
         var openAppURLScheme = 'bytter-bfs-app://index/sso?appServerAddress=' + base64Encode(timestamp + appServerAddress) +
             '&username=' + base64Encode(timestamp + username) + '&timestamp=' + timestamp;
+
+        // 测试不带时间戳参数
+//        var openAppURLScheme = 'bytter-bfs-app://index/sso?appServerAddress=' + base64Encode(timestamp + appServerAddress) +
+//            '&username=' + base64Encode(timestamp + username);
+
         return openAppURLScheme;
     }
 
