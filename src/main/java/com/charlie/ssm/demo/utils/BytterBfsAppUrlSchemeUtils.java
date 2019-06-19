@@ -23,9 +23,9 @@ public class BytterBfsAppUrlSchemeUtils {
 
         String timestamp = String.valueOf((new Date()).getTime());
 
-        String openAppURLScheme1 = getOpenAppUrlSchemeByToken(appServerAddress, token);
+        String openAppURLScheme1 = getOpenAppUrlSchemeByToken(appServerAddress, token, timestamp);
         System.out.println("未携带登录名的URL Scheme（参数加密）：" + openAppURLScheme1);
-        String openAppURLScheme2 = getOpenAppUrlSchemeByUsername(appServerAddress, username);
+        String openAppURLScheme2 = getOpenAppUrlSchemeByUsername(appServerAddress, username, timestamp);
         System.out.println("携带了登录名的URL Scheme（参数加密）：" + openAppURLScheme2);
     }
 
@@ -37,11 +37,11 @@ public class BytterBfsAppUrlSchemeUtils {
      * @param token            身份令牌（用于获取登录名）
      * @return
      */
-    public static String getOpenAppUrlSchemeByToken(String appServerAddress, String token) {
-        String base64Address = Base64.encodeBase64String(appServerAddress.getBytes());
-        String base64Token = Base64.encodeBase64String(token.getBytes());
-        String openAppUrlScheme = String.format("%s?appServerAddress=%s&token=%s",
-                appSSOUrlScheme, base64Address, base64Token);
+    public static String getOpenAppUrlSchemeByToken(String appServerAddress, String token, String timestamp) {
+        String base64Address = Base64.encodeBase64String((timestamp + appServerAddress).getBytes());
+        String base64Token = Base64.encodeBase64String((timestamp + token).getBytes());
+        String openAppUrlScheme = String.format("%s?appServerAddress=%s&token=%s&timestamp=%s",
+                appSSOUrlScheme, base64Address, base64Token, timestamp);
         return openAppUrlScheme;
     }
 
@@ -52,11 +52,11 @@ public class BytterBfsAppUrlSchemeUtils {
      * @param username         登录名
      * @return
      */
-    public static String getOpenAppUrlSchemeByUsername(String appServerAddress, String username) {
-        String base64Address = Base64.encodeBase64String(appServerAddress.getBytes());
-        String base64Username = Base64.encodeBase64String(username.getBytes());
-        String openAppUrlScheme = String.format("%s?appServerAddress=%s&username=%s",
-                appSSOUrlScheme, base64Address, base64Username);
+    public static String getOpenAppUrlSchemeByUsername(String appServerAddress, String username, String timestamp) {
+        String base64Address = Base64.encodeBase64String((timestamp + appServerAddress).getBytes());
+        String base64Username = Base64.encodeBase64String((timestamp + username).getBytes());
+        String openAppUrlScheme = String.format("%s?appServerAddress=%s&username=%s&timestamp=%s",
+                appSSOUrlScheme, base64Address, base64Username, timestamp);
         return openAppUrlScheme;
     }
 

@@ -55,7 +55,8 @@ public class GuideController {
     public String openApp(Model model) throws Exception {
         String appServerAddress = "http://192.168.0.178:8080/t2";
         String token = "test4";
-        String openAppUrlScheme = BytterBfsAppUrlSchemeUtils.getOpenAppUrlSchemeByToken(appServerAddress,token);
+        String timestamp = String.valueOf((new Date()).getTime());
+        String openAppUrlScheme = BytterBfsAppUrlSchemeUtils.getOpenAppUrlSchemeByToken(appServerAddress,token,timestamp);
         model.addAttribute("openAppUrlScheme", openAppUrlScheme);
         return "page/openApp/openApp";
     }
@@ -65,16 +66,16 @@ public class GuideController {
 
     @RequestMapping(value = "/openApp1")
     public String openApp1(Model model) throws Exception {
-        // timestamp作为加密和解密的密匙
-        String timestamp = AESUtils.getKey(String.valueOf((new Date()).getTime()));
-        String appServerAddress = "http://192.168.0.178:8080/t2";
-
-        String encrypAppServerAddress = Base64.encodeBase64String(AESUtils.encryptAES(appServerAddress, timestamp).getBytes());
-        //String encrypAppServerAddress = AESUtils.encryptAES(appServerAddress, timestamp);
-
-        String openAppUrlScheme = String.format("bytter-bfs-app://index?appServerAddress=%s&token=test4&timestamp=%s",
-                encrypAppServerAddress, timestamp);
-        model.addAttribute("openAppUrlScheme", openAppUrlScheme);
+//        // timestamp作为加密和解密的密匙
+//        String timestamp = AESUtils.getKey(String.valueOf((new Date()).getTime()));
+//        String appServerAddress = "http://192.168.0.178:8080/t2";
+//
+//        String encrypAppServerAddress = Base64.encodeBase64String(AESUtils.encryptAES(appServerAddress, timestamp).getBytes());
+//        //String encrypAppServerAddress = AESUtils.encryptAES(appServerAddress, timestamp);
+//
+//        String openAppUrlScheme = String.format("bytter-bfs-app://index?appServerAddress=%s&token=test4&timestamp=%s",
+//                encrypAppServerAddress, timestamp);
+//        model.addAttribute("openAppUrlScheme", openAppUrlScheme);
         return "page/openApp/openApp1";
     }
 
