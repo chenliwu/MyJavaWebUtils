@@ -30,6 +30,8 @@
     <task:scheduler id="scheduler" pool-size="10"/>
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
 
+    <mvc:resources mapping="/h5/**" location="/h5/" />
+
 
     <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
     <mvc:annotation-driven>

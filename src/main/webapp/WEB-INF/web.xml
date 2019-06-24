@@ -10,7 +10,7 @@
     <!--version="2.5" metadata-complete="true">-->
 
     <display-name>Archetype Created Web Application</display-name>
-    
+
     <welcome-file-list>
         <welcome-file>/page/pages/login1.jsp</welcome-file>
     </welcome-file-list>
@@ -73,6 +73,7 @@
     <!--允许加载js后缀名的文件。不加以下的代码，JS文件会被spring的过滤器拦截-->
     <servlet-mapping>
         <servlet-name>default</servlet-name>
+        <url-pattern>*.html</url-pattern>
         <url-pattern>*.js</url-pattern>
         <url-pattern>*.css</url-pattern>
     </servlet-mapping>

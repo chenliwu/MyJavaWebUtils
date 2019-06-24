@@ -1,13 +1,11 @@
 package com.charlie.ssm.demo.controller;
 
-import com.charlie.ssm.demo.utils.AESUtils;
 import com.charlie.ssm.demo.utils.BytterBfsAppUrlSchemeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 //import java.util.Base64;
-import org.apache.commons.codec.binary.Base64;
 
 import java.util.Date;
 
@@ -50,6 +48,7 @@ public class GuideController {
     public String toLoginPage() {
         return "page/pages/login1";
     }
+
 
     @RequestMapping(value = "/openApp")
     public String openApp(Model model) throws Exception {
