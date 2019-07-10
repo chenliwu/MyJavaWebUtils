@@ -1,7 +1,5 @@
 package com.charlie.ssm.demo.bank.icbc.entity.account.query.history.detail;
 
-import com.charlie.ssm.demo.bank.icbc.entity.ICBCOrderPub;
-import com.charlie.ssm.demo.utils.JaxbUtils;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
