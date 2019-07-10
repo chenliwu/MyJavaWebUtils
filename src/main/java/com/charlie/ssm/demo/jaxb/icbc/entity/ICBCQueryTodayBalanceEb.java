@@ -11,14 +11,15 @@ import javax.xml.bind.annotation.*;
 @Data
 @Accessors(chain = true)
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "eb")
-@XmlSeeAlso({ICBCPub.class,ICBCTodayBalance.class})
-public class ICBCEb {
+//@XmlRootElement(name = "eb")
+//@XmlSeeAlso({ICBCQueryPub.class,ICBCQueryTodayBalanceIn.class})
+@XmlType(propOrder = {"pub", "in"})
+public class ICBCQueryTodayBalanceEb {
 
     @XmlElement(name = "pub")
-    private ICBCPub pub;
+    private ICBCQueryPub pub;
 
     @XmlElement(name = "in")
-    private Object in;
+    private ICBCQueryTodayBalanceIn in;
 
 }

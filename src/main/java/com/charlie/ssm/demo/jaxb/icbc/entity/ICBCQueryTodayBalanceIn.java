@@ -11,37 +11,26 @@ import javax.xml.bind.annotation.*;
 @Data
 @Accessors(chain = true)
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "in")
-@XmlType(propOrder = {})
-public class ICBCTodayBalance {
+//@XmlRootElement(name = "in")
+@XmlType(propOrder = {"AccNo", "AreaCode", "MinAmt", "MaxAmt", "BeginTime", "EndTime", "NextTag", "ReqReserved1", "ReqReserved2"})
+public class ICBCQueryTodayBalanceIn {
 
-    @XmlElement(name = "pub")
-    private ICBCPub pub;
-
-    @XmlElement
     private String AccNo;
-    @XmlElement
+
     private String AreaCode;
 
-    @XmlElement
     private String MinAmt;
 
-    @XmlElement
     private String MaxAmt;
 
-    @XmlElement
     private String BeginTime;
 
-    @XmlElement
     private String EndTime;
 
-    @XmlElement
     private String NextTag;
 
-    @XmlElement
     private String ReqReserved1;
 
-    @XmlElement
     private String ReqReserved2;
 
 

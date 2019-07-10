@@ -16,9 +16,9 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "CMS")
-public class ICBCCms implements Serializable{
+public class ICBCQueryTodayBalanceCms implements Serializable{
 
     @XmlElement(name = "eb")
-    private ICBCEb eb;
+    private ICBCQueryTodayBalanceEb eb;
 
 }

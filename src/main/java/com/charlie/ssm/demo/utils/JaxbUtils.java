@@ -80,7 +80,9 @@ public class JaxbUtils {
                 // 1) 隐去报文头的生成, Marshaller.JAXB_FRAGMENT默认为false
                 marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
                 // 2) 自定义生成
-                writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+                //writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+                String str = String.format("<?xml version=\"1.0\" encoding=\"%s\" ?>\n",encode);
+                writer.write(str);
             } else {
                 marshaller.setProperty(Marshaller.JAXB_FRAGMENT, fragment);
             }
