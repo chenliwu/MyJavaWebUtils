@@ -1,4 +1,4 @@
-package com.charlie.ssm.demo.jaxb.icbc.entity;
+package com.charlie.ssm.demo.bank.icbc.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

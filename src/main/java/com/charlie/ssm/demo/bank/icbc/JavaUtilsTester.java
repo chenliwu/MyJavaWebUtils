@@ -1,9 +1,9 @@
-package com.charlie.ssm.demo.jaxb.icbc;
+package com.charlie.ssm.demo.bank.icbc;
 
-import com.charlie.ssm.demo.jaxb.icbc.entity.ICBCQueryPub;
-import com.charlie.ssm.demo.jaxb.icbc.entity.ICBCQueryTodayBalanceCms;
-import com.charlie.ssm.demo.jaxb.icbc.entity.ICBCQueryTodayBalanceEb;
-import com.charlie.ssm.demo.jaxb.icbc.entity.ICBCQueryTodayBalanceIn;
+import com.charlie.ssm.demo.bank.icbc.entity.ICBCOrderPub;
+import com.charlie.ssm.demo.bank.icbc.entity.ICBCQueryTodayBalanceCms;
+import com.charlie.ssm.demo.bank.icbc.entity.ICBCQueryTodayBalanceEb;
+import com.charlie.ssm.demo.bank.icbc.entity.ICBCQueryTodayBalanceIn;
 import com.charlie.ssm.demo.utils.JaxbUtils;
 
 /**
@@ -23,7 +23,7 @@ public class JavaUtilsTester {
 //        ICBCQueryTodayBalanceCms cms = new ICBCQueryTodayBalanceCms();
 //        ICBCQueryTodayBalanceEb eb = new ICBCQueryTodayBalanceEb();
 //
-//        ICBCQueryPub pub = new ICBCQueryPub();
+//        ICBCOrderPub pub = new ICBCOrderPub();
 //        pub.setTransCode("交易代码");
 //        pub.setCIS("集团CIS号");
 //        pub.setBankCode("归属银行编号");
@@ -55,7 +55,7 @@ public class JavaUtilsTester {
         ICBCQueryTodayBalanceCms cms = new ICBCQueryTodayBalanceCms();
         ICBCQueryTodayBalanceEb eb = new ICBCQueryTodayBalanceEb();
 
-        ICBCQueryPub pub = new ICBCQueryPub();
+        ICBCOrderPub pub = new ICBCOrderPub();
         pub.setTransCode("交易代码");
         pub.setCIS("集团CIS号");
         pub.setBankCode("归属银行编号");

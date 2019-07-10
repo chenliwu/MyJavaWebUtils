@@ -1,4 +1,4 @@
-package com.charlie.ssm.demo.jaxb.icbc.entity;
+package com.charlie.ssm.demo.bank.icbc.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -11,13 +11,11 @@ import javax.xml.bind.annotation.*;
 @Data
 @Accessors(chain = true)
 @XmlAccessorType(XmlAccessType.FIELD)
-//@XmlRootElement(name = "eb")
-//@XmlSeeAlso({ICBCQueryPub.class,ICBCQueryTodayBalanceIn.class})
 @XmlType(propOrder = {"pub", "in"})
 public class ICBCQueryTodayBalanceEb {
 
     @XmlElement(name = "pub")
-    private ICBCQueryPub pub;
+    private ICBCOrderPub pub;
 
     @XmlElement(name = "in")
     private ICBCQueryTodayBalanceIn in;
