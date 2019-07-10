@@ -23,7 +23,7 @@ public class MyJaxbTest {
         book.setCalendar(new Date());
         book.setPrice(23.45f);   //默认是0.0
 
-        String str = JaxbUtil.convertToXml(book,"GBK");
+        String str = MyJaxbUtil.convertToXml(book,"GBK");
         System.out.println(str);
     }
 
@@ -41,8 +41,14 @@ public class MyJaxbTest {
 
         student.setRole(role);
 
-        String str = JaxbUtil.convertToXml(student);
+        String str = MyJaxbUtil.convertToXml(student);
         System.out.println(str);
     }
+
+
+    public static void test3(){
+
+    }
+
 
 }

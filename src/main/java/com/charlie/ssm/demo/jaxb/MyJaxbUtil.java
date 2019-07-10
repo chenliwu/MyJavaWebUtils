@@ -16,7 +16,7 @@ import java.io.StringWriter;
  * @author zhuc
  * @create 2013-3-29 下午2:40:14
  */
-public class JaxbUtil {
+public class MyJaxbUtil {
 
     /**
      * JavaBean转换成xml
