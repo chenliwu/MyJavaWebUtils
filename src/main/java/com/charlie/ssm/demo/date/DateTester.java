@@ -1,5 +1,6 @@
 package com.charlie.ssm.demo.date;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +17,8 @@ public class DateTester {
     public static void main(String[] args) {
         //test1();
         //test2();
-        test3();
+        //test3();
+        test4();
     }
 
     public static void test1() {
@@ -42,6 +44,17 @@ public class DateTester {
             System.out.println("getQueryTime:" + getQueryTime(timeStr).getTime());
         } catch (Exception e) {
             System.out.println("日期转化错误：" + e.getMessage());
+        }
+
+    }
+
+
+    public static void test4() {
+        try {
+            Date date = DateFormat.getDateTimeInstance().parse("20190717103700000012");
+            System.out.println(date.toString());
+        } catch (Exception e) {
+            System.out.println("时间转化错误：" + e.getMessage());
         }
 
     }

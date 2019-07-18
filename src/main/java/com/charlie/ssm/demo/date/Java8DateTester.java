@@ -1,7 +1,12 @@
 package com.charlie.ssm.demo.date;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * Java8 日期时间API运用
@@ -10,8 +15,14 @@ import java.time.format.DateTimeFormatter;
 public class Java8DateTester {
 
     public static void main(String args[]) {
-        test1();
-        test2();
+        //test1();
+        //test2();
+        //LocalDateToUdate();
+        //LocalDateTimeToUdate();
+        //test3();
+        //testJava8DateToString();
+        //testTimeString();
+        testTimeString1();
     }
 
     public static void test1() {
@@ -33,6 +44,80 @@ public class Java8DateTester {
         // 执行解析
         String dateString = nowDateTime.format(HHmmssSSSSSS);
         System.out.println("dateString.HHmmssSSSSSS:" + dateString);
+    }
+
+    public static void LocalDateToUdate() {
+        LocalDate localDate = LocalDate.now();
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
+        java.util.Date date = Date.from(instant);
+        System.out.println(date.toString());
+    }
+
+
+    public static void LocalDateTimeToUdate() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zone).toInstant();
+        java.util.Date date = Date.from(instant);
+        System.out.println(date.toString());
+    }
+
+    public static void test3(){
+//        String time = "20190717085010";
+//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+//        LocalDateTime localDateTime = LocalDateTime.parse(time,dateTimeFormatter);
+//        System.out.println(localDateTime.toString());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
+        LocalDate localDate = LocalDate.parse("2017 06 17", formatter);
+        Instant instant =  localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        Date date = Date.from(instant);
+        System.out.println(date.toString());
+
+    }
+
+    public static void testJava8DateToString(){
+        // 02. java.util.Date --> java.time.LocalDate
+        Date date = new Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalDate localDate = localDateTime.toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String timeString = localDate.format(formatter);
+        System.out.println(timeString);
+    }
+
+
+    public static void testTimeString(){
+
+        // 根据需要解析的日期、时间字符串定义解析所用的格式器
+        DateTimeFormatter yyyyMMddHHmmssssssss = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        // 获取当前时间
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        // 执行解析
+        String dateString = nowDateTime.format(yyyyMMddHHmmssssssss);
+        System.out.println("dateString.yyyyMMddHHmmssssssss:" + dateString);
+
+
+        // 查询时间：yyyyMMddHHmmssssssss
+        String time = "20190717103159326";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        LocalDateTime localDateTime = LocalDateTime.parse(time, formatter);
+        Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        Date date = Date.from(instant);
+        System.out.println(date.toString());
+    }
+
+
+    public static void testTimeString1(){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate localDate = LocalDate.parse("20190717", formatter);
+        Instant instant = localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        Date date = Date.from(instant);
+        System.out.println(date);
     }
 
 
