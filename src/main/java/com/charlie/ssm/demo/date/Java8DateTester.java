@@ -23,6 +23,7 @@ public class Java8DateTester {
         //testJava8DateToString();
         //testTimeString();
         testTimeString1();
+        //UDateToLocalDate();
     }
 
     public static void test1() {
@@ -101,6 +102,7 @@ public class Java8DateTester {
         System.out.println("dateString.yyyyMMddHHmmssssssss:" + dateString);
 
 
+        // 时间字符串转化LocalDateTime对象，然后再转化成Date对象
         // 查询时间：yyyyMMddHHmmssssssss
         String time = "20190717103159326";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
@@ -111,13 +113,29 @@ public class Java8DateTester {
     }
 
 
+    /**
+     *  时间字符串转化LocalDateTime对象，然后再转化成Date对象
+     */
     public static void testTimeString1(){
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate localDate = LocalDate.parse("20190717", formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse("2019-07-17", formatter);
         Instant instant = localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
         Date date = Date.from(instant);
         System.out.println(date);
+    }
+
+    /**
+     * Date对象转化成LocalDate对象，然后再转化成指定格式的字符串
+     */
+    public static void  UDateToLocalDate() {
+        java.util.Date date = new java.util.Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalDate localDate = localDateTime.toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String timeString = localDate.format(formatter);
+        System.out.println("Date对象转化成LocalDate对象，然后再转化成指定格式的字符串:"+timeString);
     }
 
 
