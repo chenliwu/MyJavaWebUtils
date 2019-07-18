@@ -3,6 +3,7 @@ package com.charlie.ssm.demo.date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -63,6 +64,7 @@ public class DateTester {
     public static Date getQueryTime(String timeStr) throws ParseException {
         return new Date(yyyyMMddHHmmssssssss.parse(timeStr).getTime());
     }
+
 
 
 }
