@@ -12,7 +12,8 @@ import java.util.Date;
 public class DateCompareTester {
 
     public static void main(String[] args) {
-        dateCompare();
+        //dateCompare();
+        dateCompare1();
     }
 
 
@@ -32,6 +33,29 @@ public class DateCompareTester {
         }
 
     }
+
+    public static void dateCompare1(){
+        try {
+            SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+            String dateString1 = "20190601";
+            Date date1 = sf.parse(dateString1);
+
+            String dateString2 = "20190601";
+            Date date2 = sf.parse(dateString2);
+
+            System.out.println("日期天数之差1：" + dateDifferent1(date2, date1));
+            System.out.println("日期天数之差2：" + dateDifferent2(date2, date1));
+
+        } catch (Exception e) {
+            System.out.println("日期转化错误：" + e.getMessage());
+        }
+
+    }
+
+
+
+
+
 
     /**
      * 比较两个date返回日期相差天数
