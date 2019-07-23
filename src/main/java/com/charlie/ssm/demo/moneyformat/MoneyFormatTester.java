@@ -73,7 +73,7 @@ public class MoneyFormatTester {
 
 
     /**
-     * Bigcimal类型的金额转化Long类型的金额
+     * BigDecimal类型的金额转化Long类型的金额
      * Long类型金额单位为分
      *
      * @param money
