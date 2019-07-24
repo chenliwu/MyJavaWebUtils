@@ -8,13 +8,29 @@ import java.util.Random;
 public class StringUtils {
 
     public static void main(String[]args){
-        String str12len = getRandomString(12);
-        String str35len = getRandomString(35);
-        System.out.println("12位随机字符串："+str12len);
-        System.out.println("length："+str12len.length());
-        System.out.println("35位随机字符串："+str35len);
-        System.out.println("length："+str35len.length());
+//        String str12len = getRandomString(12);
+//        String str35len = getRandomString(35);
+//        System.out.println("12位随机字符串："+str12len);
+//        System.out.println("length："+str12len.length());
+//        System.out.println("35位随机字符串："+str35len);
+//        System.out.println("length："+str35len.length());
+
+        test();
+
     }
+
+
+    public static void test(){
+        System.out.println("开始");
+        long currentTime = System.currentTimeMillis();
+
+        for(int i = 0;i<1000000;i++){
+            System.out.println(getRandomString(35));
+        }
+        System.out.println();
+        System.out.println("耗时:"+(System.currentTimeMillis()-currentTime));
+    }
+
 
     /**
      * 生成指定长度的随机字符串
