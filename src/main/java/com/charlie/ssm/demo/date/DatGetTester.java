@@ -87,14 +87,13 @@ public class DatGetTester {
      */
     public static void getMonthEndDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        // 获取本月的第一天
         Calendar cale = Calendar.getInstance();
         cale.add(Calendar.MONTH, 1);
         cale.set(Calendar.DAY_OF_MONTH, 0);
         Date date = cale.getTime();
         LocalDateTime localDateTime = dateToLocalDateTime(date);
-        String firstDateTimeString = localDateTime.format(formatter);
-        System.out.println("当前月的最后一天：" + firstDateTimeString);
+        String endDateTimeString = localDateTime.format(formatter);
+        System.out.println("当前月的最后一天：" + endDateTimeString);
     }
 
     /**
