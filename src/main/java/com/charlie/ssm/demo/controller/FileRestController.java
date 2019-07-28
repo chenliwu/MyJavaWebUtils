@@ -1,14 +1,16 @@
 package com.charlie.ssm.demo.controller;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 import com.charlie.ssm.demo.utils.HttpUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * 文件系统
@@ -16,6 +18,49 @@ import java.net.URLEncoder;
 @RestController
 @RequestMapping("/api/files")
 public class FileRestController {
+
+    @CrossOrigin(allowCredentials="true",maxAge = 3600)
+    @RequestMapping("/upload")
+    public String upload(MultipartFile file){
+        if (file.isEmpty()) {
+            return null;
+        }
+        String filename = file.getOriginalFilename();
+
+        String ext= null;
+        if(filename.contains(".")){
+            ext = filename.substring(filename.lastIndexOf("."));
+        }else{
+            ext = "";
+        }
+
+        String uuid =  UUID.randomUUID().toString().replaceAll("-", "");
+        String nfileName = uuid + ext;
+        String curDate= DateUtil.format(new Date(), "yyyyMMdd");
+        String dirPath = "/passenger-web/file/"+ curDate ; //DateFormatUtils.format(new Date(), "yyyyMMdd");
+        String BASE_PATH=System.getProperty("user.dir");
+        String filepath = BASE_PATH.endsWith("/") ? BASE_PATH+dirPath : BASE_PATH+"/"+dirPath;
+        File targetFile = new File(filepath);
+        if (!targetFile.exists()) {
+            targetFile.mkdirs();
+        }
+
+        File toFile = new File(filepath, nfileName);
+        try {
+            file.transferTo(toFile);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //下载url 等于=日期/id.文件类型
+        if(StrUtil.isNotEmpty(ext)){
+            ext=ext.substring(1);
+        }
+        String downloadUrl = "/file/download/"+curDate+ "/"+uuid+"/"+ext;
+        return downloadUrl;
+    }
 
     @GetMapping("/testParam")
     public String testHttpClientParam(@RequestParam("param") String param){
