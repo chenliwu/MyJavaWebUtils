@@ -29,7 +29,7 @@ public class StreamTester {
 
     public static void main(String[] args) {
         forEachList();
-        listCount();
+        // listCount();
 
     }
 
@@ -43,12 +43,18 @@ public class StreamTester {
 //        });
 
         // stream流的map方法，要返回一个参数，然后可以继续forEach
-        dataList.stream().map((item) -> {
-            item = item + "map";
-            return item;
-        }).forEach((item) -> {
+//        dataList.stream().map((item) -> {
+//            item = item + "map";
+//            return item;
+//        }).forEach((item) -> {
+//            System.out.println(item);
+//        });
+
+
+        dataList.stream().limit(5).forEach((item)->{
             System.out.println(item);
         });
+
     }
 
     /**
