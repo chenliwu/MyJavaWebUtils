@@ -14,7 +14,6 @@ public class FileUtils {
     final static String CHARSET_UTF_8 = "UTF-8";
 
     public static void main(String[] args) {
-        //system.out.println(file.separator);
         try {
             test1();
             //test2();
@@ -61,14 +60,16 @@ public class FileUtils {
         return new File(filePath).isDirectory();
     }
 
+
     /**
-     * 读取文件的内容
+     * 按行读取文件的内容
      *
      * @param filePath
+     * @param charsetName
      * @return
-     * @throws IOException     
+     * @throws IOException
      */
-    public static String readFileContent(String filePath) throws IOException {
+    public static String readFileContentByLine(String filePath, String charsetName) throws IOException {
         StringBuilder sb = new StringBuilder();
         File file = new File(filePath);
         if (!file.exists()) {
@@ -77,7 +78,10 @@ public class FileUtils {
         if (file.isDirectory()) {
             throw new IOException("指定文件是一个文件夹：" + filePath);
         }
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), CHARSET_UTF_8));
+        if (charsetName == null || charsetName.trim().length() == 0) {
+            charsetName = CHARSET_UTF_8;
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
         String str;
         while (null != (str = bufferedReader.readLine())) {
             sb.append(str).append("\n");
