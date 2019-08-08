@@ -284,7 +284,7 @@
     </dependencies>
 
     <build>
-        <finalName>MySSM</finalName>
+        <finalName>MyJavaWebUtils</finalName>
         <resources>
             <!--每次用maven编译时它会将src/main/java和src/main/resources下的所有xml文件都进行引入-->
             <!--<resource>-->
