@@ -30,6 +30,7 @@ public class ReadFileAndWriteFileTest {
             data.append("金额" + i).append("|");
             data.append("备注" + i).append("|");
             data.append("错误信息" + i).append("|");
+            data.append("\r\n");
         }
         String filePath = "mfsfile.txt";
         saveDataToFile(filePath,data.toString());
