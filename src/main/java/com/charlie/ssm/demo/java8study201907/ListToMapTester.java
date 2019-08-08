@@ -13,8 +13,9 @@ public class ListToMapTester {
 
     public static void main(String[] args) {
 
-        listToMap();
-        listToMap1();
+        // listToMap();
+        // listToMap1();
+        listToMapAndRevise();
     }
 
 
@@ -54,6 +55,22 @@ public class ListToMapTester {
         Map<String, Student> studentMap = studentList.stream().collect(Collectors.toMap(Student::getSno, Function.identity(), (key1, key2) -> key2));
         studentMap.forEach((key, value) -> {
             System.out.println("key:" + key + " ---- " + "value:" + value);
+        });
+    }
+
+    /**
+     * 测试引用对象的修改
+     */
+    public static void listToMapAndRevise(){
+        List<Student> studentList = new ArrayList<>();
+        studentList.add(new Student("001", "001"));
+        studentList.add(new Student("002", "002"));
+        studentList.add(new Student("003", "003"));
+        Map<String, Student> studentMap = studentList.stream().collect(Collectors.toMap(Student::getSno, Function.identity(), (key1, key2) -> key2));
+        Student student = studentMap.get("001");
+        student.setName("1212313");
+        studentList.stream().forEach((item)->{
+            System.out.println(item);
         });
     }
 
