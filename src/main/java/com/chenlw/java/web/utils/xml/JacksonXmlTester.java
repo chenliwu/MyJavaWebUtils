@@ -1,6 +1,8 @@
 package com.chenlw.java.web.utils.xml;
 
+import com.chenlw.java.web.utils.json.JacksonJsonMapper;
 import com.chenlw.java.web.utils.utils.FileUtils;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.chenlw.java.web.utils.xml.JackSonXmUtils.xmlMapper;
+
 /**
  * @author chenlw 2019/08/09
  */
@@ -23,7 +27,8 @@ public class JacksonXmlTester {
     public static void main(String[] args) {
         try {
             // testXmlParse();
-            testXmlFileContentToObj();
+            // testXmlFileContentToObj();
+            testXmlToJson();
         } catch (Exception e) {
             System.out.println("异常信息：" + e.getMessage());
         }
@@ -61,11 +66,27 @@ public class JacksonXmlTester {
         System.out.println(JackSonXmUtils.beanToXml(areaData));
     }
 
+    /**
+     * Xml转化成json
+     * @throws Exception
+     */
+    public static void testXmlToJson()throws Exception{
+        String filePath = "AreaCode.xml";
+        AreaData areaData = xmlMapper.readValue(new File(filePath), AreaData.class);
+        System.out.println("\n测试XML文件内容转化成对象");
+        System.out.println(JackSonXmUtils.beanToXml(areaData));
+        String json = JacksonJsonMapper.objectToJson(areaData.getRd());
+        System.out.println("json");
+        System.out.println(json);
+    }
+
+
+
 
     @Data
     @Accessors(chain = true)
     @JacksonXmlRootElement(localName = "data")
-    // @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class AreaData {
 
         @JacksonXmlElementWrapper(localName = "rd", useWrapping = false)
