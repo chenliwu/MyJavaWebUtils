@@ -114,4 +114,67 @@ public class FileUtils {
         bufferedWriter.close();
     }
 
+
+    /**
+     * 保存数据到文件
+     *
+     * @param filePath
+     * @param data
+     * @throws Exception
+     */
+    public static void saveDataToFile(String filePath, String data) throws Exception {
+        FileWriter fileWriter = null;
+        PrintWriter printWriter = null;
+        try {
+            File file = new File(filePath);
+            file.createNewFile();
+            fileWriter = new FileWriter(file);
+            printWriter = new PrintWriter(fileWriter);
+            printWriter.print(data);
+        } catch (Exception e) {
+            throw new Exception("保存数据到文件失败：" + e.getMessage());
+        } finally {
+            if (printWriter != null) {
+                printWriter.close();
+            }
+            if (fileWriter != null) {
+                fileWriter.close();
+            }
+        }
+    }
+
+
+    /**
+     * 按行读取文件内容，将其内容转化成字符串返回
+     *
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    public static String readFileContentByLine(String filePath) throws Exception {
+        StringBuilder data = new StringBuilder();
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        try {
+            fileReader = new FileReader(filePath);
+            bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                data.append(line);
+            }
+        } catch (Exception e) {
+            throw new Exception("按行读取文件内容错误：" + e.getMessage());
+        } finally {
+            if (fileReader != null) {
+                fileReader.close();
+            }
+            if (bufferedReader != null) {
+                bufferedReader.close();
+            }
+        }
+        return data.toString();
+    }
+
+
+
 }
