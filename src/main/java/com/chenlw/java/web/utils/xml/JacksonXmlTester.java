@@ -1,7 +1,6 @@
 package com.chenlw.java.web.utils.xml;
 
 import com.chenlw.java.web.utils.utils.FileUtils;
-import com.chenlw.java.web.utils.utils.JackSonXmUtils;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;

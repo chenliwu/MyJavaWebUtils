@@ -1,4 +1,4 @@
-package com.chenlw.java.web.utils.utils;
+package com.chenlw.java.web.utils.xml;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
