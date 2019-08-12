@@ -2,10 +2,11 @@ package com.charlie.myssm.test.service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.charlie.ssm.demo.common.entity.ResultEntity;
-import com.charlie.ssm.demo.entity.UserEntity;
-import com.charlie.ssm.demo.service.IUserService;
-import com.charlie.ssm.demo.service.impl.UserServiceImpl;
+
+import com.chenlw.java.web.utils.common.entity.ResultEntity;
+import com.chenlw.java.web.utils.entity.UserEntity;
+import com.chenlw.java.web.utils.service.IUserService;
+import com.chenlw.java.web.utils.service.impl.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
