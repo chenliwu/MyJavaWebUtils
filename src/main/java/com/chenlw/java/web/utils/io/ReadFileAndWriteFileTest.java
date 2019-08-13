@@ -1,6 +1,8 @@
 package com.chenlw.java.web.utils.io;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 读写文件测试
@@ -11,8 +13,9 @@ public class ReadFileAndWriteFileTest {
 
     public static void main(String[] args) {
         try {
-            testSaveDataToFile();
-            testReadFileContent();
+            // testSaveDataToFile();
+            // testReadFileContent();
+            testReadFileContentToList();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -33,7 +36,7 @@ public class ReadFileAndWriteFileTest {
             data.append("\r\n");
         }
         String filePath = "mfsfile.txt";
-        saveDataToFile(filePath,data.toString());
+        saveDataToFile(filePath, data.toString());
         System.out.println("保存数据到文件成功");
     }
 
@@ -48,6 +51,20 @@ public class ReadFileAndWriteFileTest {
         String filePath = "mfsfile.txt";
         String data = readFileContentByLine(filePath);
         System.out.println(data);
+    }
+
+
+    /**
+     * 测试读取文件内容，将每一行转化成List
+     * @throws Exception
+     */
+    public static void testReadFileContentToList() throws Exception {
+        System.out.println("测试读取文件内容，将每一行转化成List");
+        String filePath = "mfsfile.txt";
+        List<String> stringList = readFileContentByLineToList(filePath);
+        stringList.stream().forEach((item) -> {
+            System.out.println(item);
+        });
     }
 
 
@@ -109,6 +126,37 @@ public class ReadFileAndWriteFileTest {
             }
         }
         return data.toString();
+    }
+
+    /**
+     * 按行读取文件内容，将其内容转化成字符串返回
+     *
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    public static List<String> readFileContentByLineToList(String filePath) throws Exception {
+        List<String> stringList = new ArrayList<>();
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        try {
+            fileReader = new FileReader(filePath);
+            bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringList.add(line);
+            }
+        } catch (Exception e) {
+            throw new Exception("按行读取文件内容错误：" + e.getMessage());
+        } finally {
+            if (fileReader != null) {
+                fileReader.close();
+            }
+            if (bufferedReader != null) {
+                bufferedReader.close();
+            }
+        }
+        return stringList;
     }
 
 
