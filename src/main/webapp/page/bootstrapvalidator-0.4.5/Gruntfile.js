@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON('com.chenlw.java.web.utils.java.learning.json'),
 
         buildDir: 'dist',
 

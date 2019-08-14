@@ -94,7 +94,7 @@ function main(args) {
     '.css',
     '.html',
     '.js',
-    '.json',
+    '.com.chenlw.java.web.utils.java.learning.json',
     '.less',
     '.md',
     '.nuspec',

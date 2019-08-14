@@ -1980,8 +1980,8 @@ QUnit.dump = (function() {
 					type = "undefined";
 				} else if ( QUnit.is( "regexp", obj ) ) {
 					type = "regexp";
-				} else if ( QUnit.is( "date", obj ) ) {
-					type = "date";
+				} else if ( QUnit.is( "com.chenlw.java.web.utils.java.learning.date", obj ) ) {
+					type = "com.chenlw.java.web.utils.java.learning.date";
 				} else if ( QUnit.is( "function", obj ) ) {
 					type = "function";
 				} else if ( obj.setInterval !== undefined &&

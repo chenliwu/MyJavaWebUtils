@@ -146,7 +146,7 @@
                 month -= 20;
             }
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                 return false;
             }
 
@@ -286,7 +286,7 @@
                 year += 100;
             }
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                 return false;
             }
 
@@ -334,7 +334,7 @@
                     break;
             }
 
-            return $.fn.bootstrapValidator.helpers.date(year, month, day);
+            return com.chenlw.java.web.utils.java.learning.date(year, month, day);
         },
 
         /**
@@ -404,7 +404,7 @@
                 };
             year = centuries[value.charAt(6)] + year;
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                 return false;
             }
 
@@ -491,7 +491,7 @@
                 century = parseInt(value.charAt(9));
 
             year = (century == 9) ? (1900 + year) : ((20 + century) * 100 + year);
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!com.chenlw.java.web.utils.java.learning.date(year, month, day, true)) {
                 return false;
             }
             // Validate the check digit
@@ -525,7 +525,7 @@
                 day     = parseInt(value.substr(5, 2), 10),
                 century = (gender % 2 == 0) ? (17 + gender / 2) : (17 + (gender + 1) / 2);
             year = century * 100 + year;
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!com.chenlw.java.web.utils.java.learning.date(year, month, day, true)) {
                 return false;
             }
 
@@ -574,7 +574,7 @@
                 year  = parseInt(value.substr(4, 2));
             year = year + 1800 + parseInt(value.charAt(6)) * 100;
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!com.chenlw.java.web.utils.java.learning.date(year, month, day, true)) {
                 return false;
             }
 
@@ -658,7 +658,7 @@
             }
             if (gender != 9) {
                 year = centuries[gender + ''] + year;
-                if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                     return false;
                 }
             }
@@ -696,7 +696,7 @@
             var year  = parseInt(value.substr(0, 2)) + 1900,
                 month = parseInt(value.substr(2, 2)),
                 day   = parseInt(value.substr(4, 2));
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                 return false;
             }
 
@@ -749,7 +749,7 @@
                 day         = parseInt(value.substr(4, 2));
             year = (year >= currentYear) ? (year + 1900) : (year + 2000);
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                 return false;
             }
 

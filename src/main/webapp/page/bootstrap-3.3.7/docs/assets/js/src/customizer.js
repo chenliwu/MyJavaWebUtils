@@ -76,7 +76,7 @@ window.onload = function () { // wait for load in a dumb way because B-0
       url: 'https://api.github.com/gists',
       type: 'POST',
       contentType: 'application/json; charset=UTF-8',
-      dataType: 'json',
+      dataType: 'com.chenlw.java.web.utils.java.learning.json',
       data: JSON.stringify(data)
     })
     .success(function (result) {
@@ -143,10 +143,10 @@ window.onload = function () { // wait for load in a dumb way because B-0
     $.ajax({
       url: 'https://api.github.com/gists/' + id,
       type: 'GET',
-      dataType: 'json'
+      dataType: 'com.chenlw.java.web.utils.java.learning.json'
     })
     .success(function (result) {
-      var data = JSON.parse(result.files['config.json'].content)
+      var data = JSON.parse(result.files['com.chenlw.java.web.utils.java.learning.json'].content)
       updateCustomizerFromJson(data)
     })
     .error(function (err) {
@@ -181,7 +181,7 @@ window.onload = function () { // wait for load in a dumb way because B-0
     }
 
     if (config) {
-      zip.file('config.json', config)
+      zip.file('com.chenlw.java.web.utils.java.learning.json', config)
     }
 
     var content = zip.generate({ type: 'blob' })

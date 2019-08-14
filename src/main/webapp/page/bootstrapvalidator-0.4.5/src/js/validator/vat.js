@@ -146,7 +146,7 @@
                             month -= 20;
                         }
 
-                        if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                        if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                             return false;
                         }
 
@@ -331,7 +331,7 @@
                     year += 100;
                 }
 
-                if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                     return false;
                 }
 
@@ -842,7 +842,7 @@
                     year  = parseInt(value.substr(4, 2));
                 year = year + 1800 + parseInt(value.charAt(6)) * 100;
 
-                if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                if (!com.chenlw.java.web.utils.java.learning.date(year, month, day)) {
                     return false;
                 }
 

@@ -41,7 +41,7 @@
             var xhr = $.ajax({
                 type: 'POST',
                 url: options.url,
-                dataType: 'json',
+                dataType: 'com.chenlw.java.web.utils.java.learning.json',
                 data: data
             });
             xhr.then(function(response) {
