@@ -1,4 +1,4 @@
-package com.chenlw.java.web.utils.java.learning.date;
+package date;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -50,7 +50,7 @@ public class Java8DateTester {
         LocalDate localDate = LocalDate.now();
         ZoneId zone = ZoneId.systemDefault();
         Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
-        java.util.Date date = Date.from(instant);
+        Date date = Date.from(instant);
         System.out.println(date.toString());
     }
 
@@ -59,7 +59,7 @@ public class Java8DateTester {
         LocalDateTime localDateTime = LocalDateTime.now();
         ZoneId zone = ZoneId.systemDefault();
         Instant instant = localDateTime.atZone(zone).toInstant();
-        java.util.Date date = Date.from(instant);
+        Date date = Date.from(instant);
         System.out.println(date.toString());
     }
 
@@ -127,7 +127,7 @@ public class Java8DateTester {
      * Date对象转化成LocalDate对象，然后再转化成指定格式的字符串
      */
     public static void  UDateToLocalDate() {
-        java.util.Date date = new java.util.Date();
+        Date date = new Date();
         Instant instant = date.toInstant();
         ZoneId zone = ZoneId.systemDefault();
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);

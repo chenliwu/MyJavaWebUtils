@@ -1,8 +1,6 @@
-package com.chenlw.java.web.utils.java.learning.base64;
+package base64;
 
 import org.apache.commons.codec.binary.Base64;
-
-import java.util.Date;
 
 public class Base64Tester {
 

@@ -1,4 +1,4 @@
-package com.chenlw.java.web.utils.java.learning.date;
+package date;
 
 import java.text.DateFormat;
 import java.text.ParseException;
