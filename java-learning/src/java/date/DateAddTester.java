@@ -41,7 +41,7 @@ public class DateAddTester {
      */
     public static void testChangeDate() {
         Date nowDate = new Date();
-        int amount = -90;
+        int amount = -0;
         String dateFormat = "yyyyMMdd";
         System.out.println("加减天数后的日期：" + getChangedDateString(dateFormat, nowDate, amount));
     }
