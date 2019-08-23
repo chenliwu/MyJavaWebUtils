@@ -43,7 +43,7 @@ public class DateAddTester {
         Date nowDate = new Date();
         int amount = -90;
         String dateFormat = "yyyyMMdd";
-        System.out.println("加减天数后的日期：" + changeDate(dateFormat, nowDate, amount));
+        System.out.println("加减天数后的日期：" + getChangedDateString(dateFormat, nowDate, amount));
     }
 
 
@@ -55,7 +55,7 @@ public class DateAddTester {
      * @param amount     加减天数
      * @return
      */
-    public static String changeDate(String dateFormat, Date date, int amount) {
+    public static String getChangedDateString(String dateFormat, Date date, int amount) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, amount);
@@ -69,5 +69,19 @@ public class DateAddTester {
         return localDate.format(dateTimeFormatter);
     }
 
+
+    /**
+     * 实现Date加减天数，获取加减天数后的日期对象
+     *
+     * @param date   日期对象
+     * @param amount 加减天数
+     * @return
+     */
+    public static Date getChangedDate(Date date, int amount) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, amount);
+        return calendar.getTime();
+    }
 
 }
