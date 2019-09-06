@@ -9,7 +9,16 @@ public class RandomTest {
 
     public static void main(String[] args) {
         test1();
-
+        String condition = null;
+        switch (condition) {
+            case "1":
+                System.out.println("1111");
+                break;
+            case "2":
+                System.out.println("2222");
+            default:
+                System.out.println("default");
+        }
     }
 
 

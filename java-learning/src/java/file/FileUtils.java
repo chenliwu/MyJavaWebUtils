@@ -1,4 +1,4 @@
-package com.chenlw.java.web.utils.utils;
+package file;
 
 import java.io.*;
 import java.nio.charset.Charset;
