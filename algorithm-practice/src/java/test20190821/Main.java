@@ -9,41 +9,31 @@ public class Main {
 
 
     public static void main(String[] args) {
-        findLcm();
+        fun();
     }
 
-    /**
-     * 获取最小公倍数
-     * 最小公倍数*最大公约数=两个数的乘积
-     */
-    public static void findLcm() {
-        int a, b;
+
+    public static void fun() {
+
+        StringBuilder binary = new StringBuilder();
         Scanner scanner = new Scanner(System.in);
-        a = scanner.nextInt();
-        b = scanner.nextInt();
-        if (a < b) {
-            //交换a、b的值
-            a = a + b;
-            b = a - b;
-            a = a - b;
+        int n = scanner.nextInt();
+        while (true) {
+            binary.append(n % 2);
+            n /= 2;
+            if (n / 2 == 0) {
+                binary.append(n % 2);
+                break;
+            }
         }
-        int lcm = (a * b) / gcd(a, b);
-        System.out.println(lcm);
-    }
-
-    /**
-     * 求最大公约数
-     *
-     * @param n
-     * @param m
-     * @return
-     */
-    public static int gcd(int n, int m) {
-        if (n % m == 0) {
-            return m;
-        } else {
-            return gcd(m, n % m);
+        // System.out.println(binary.reverse().toString());
+        int ans = 0;
+        for (char ch : binary.toString().toCharArray()) {
+            if (ch == '1') {
+                ans++;
+            }
         }
+        System.out.println(ans);
     }
 
 
