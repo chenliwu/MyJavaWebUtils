@@ -67,4 +67,5 @@ public class JaxWsDynamicClientTester {
         System.out.println("调用webservice成功!");
     }
 
+
 }
