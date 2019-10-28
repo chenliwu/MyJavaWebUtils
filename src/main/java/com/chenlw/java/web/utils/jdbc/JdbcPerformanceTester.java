@@ -38,6 +38,7 @@ public class JdbcPerformanceTester {
         try {
             connection = getConnection();
             statement = connection.createStatement();
+
             // 一次检索的批量值
             statement.setFetchSize(20);
 
@@ -49,8 +50,12 @@ public class JdbcPerformanceTester {
 
             long programExecuteTime = System.currentTimeMillis();
             System.out.println("=================  程序开始处理从数据库查回来的数据  ================");
+
             // 优化程序处理性能，当数据量大，setFetchSize可以提升程序处理的效率
-            // rs.setFetchSize(10000);
+            int defaultFetchSize = rs.getFetchSize();
+            System.out.println("ResultSet默认FetchSize：" + defaultFetchSize);
+            rs.setFetchSize(1000);
+
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
             String valueTemp;
