@@ -13,7 +13,7 @@ public class RegexMatches {
     private static final String INPUT = "cat cat cat cattie cat";
 
     public static void main(String args[]) {
-
+        test2();
     }
 
     /**
@@ -30,6 +30,16 @@ public class RegexMatches {
             System.out.println("Match number " + count);
             System.out.println("start(): " + m.start());
             System.out.println("end(): " + m.end());
+        }
+    }
+
+    public static void test2() {
+        Pattern pattern = Pattern.compile(REGEX);
+        // 获取 matcher 对象
+        Matcher matcher = pattern.matcher(INPUT);
+        if (matcher.find()) {
+            System.out.println("start(): " + matcher.start());
+            System.out.println("end(): " + matcher.end());
         }
     }
 
