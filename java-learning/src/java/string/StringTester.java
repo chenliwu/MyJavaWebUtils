@@ -2,6 +2,8 @@ package string;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.UUID;
+
 /**
  * @author chenlw 2019/08/30
  */
@@ -12,9 +14,23 @@ public class StringTester {
         // testResolveString();
 
         //String datetimeString = "2019090511220605";
-        String datetimeString = "201909051122";
-        System.out.println(getDateString(datetimeString));
+       // String datetimeString = "201909051122";
+       // System.out.println(getDateString(datetimeString));
+
+        //testStringReplace();
+
+        for (int i = 0; i < 10; i++) {
+            String uuid = UUID.randomUUID().toString().replaceAll("-","");
+            System.out.println( uuid.length()+ "     "+uuid);
+        }
+
     }
+
+    public static void testStringReplace(){
+        String name = "aaa/bbb/ccc/ddd";
+        System.out.println(name.replaceAll("/","-"));
+    }
+
 
     /**
      * 获取yyyyMMddHHmmss日期时间字符串

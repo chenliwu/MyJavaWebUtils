@@ -147,7 +147,7 @@ public class SqlUtils {
 
         int fromKeywordEndIndex = getFromKeywordEndIndex(orgSql);
         if (fromKeywordEndIndex != -1) {
-            orgSql = orgSql.substring(fromKeywordEndIndex, orgSql.length());
+            orgSql = orgSql.substring(fromKeywordEndIndex);
         }
         orgSql = StringUtils.substringBeforeLast(orgSql, "ORDER BY");
         orgSql = StringUtils.substringBeforeLast(orgSql, "GROUP BY");

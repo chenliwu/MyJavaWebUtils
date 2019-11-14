@@ -20,9 +20,9 @@ public final class DBUtils {
 
     public static void main(String[] args) {
         try {
-            testGetScalar();
+            // testGetScalar();
 
-            // testBatchInsert();
+            testBatchInsert();
             // testInsert();
 
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public final class DBUtils {
 
     public static void testBatchInsert() throws Exception {
         String sql = "insert into student(clno,sno,sname,sex,sbir) values(? ,?, ?, ?,? )";
-        int batchSize = 10000 * 30;
+        int batchSize = 10000 * 10;
         String clno, sno, sname, sbir;
         int successfulCount = 0;
 
@@ -121,7 +121,7 @@ public final class DBUtils {
      * SQL Server连接字符串:jdbc:sqlserver://127.0.0.1:1433;DatabaseName=DB_MyShare
      * MySQL连接字符串:jdbc:mysql://localhost:3306/testmybatis
      */
-    private static final String connectionString = "jdbc:mysql://localhost:3306/test_jdbc_performance";
+    private static final String connectionString = "jdbc:mysql://localhost:3307/test_jdbc_performance";
 
     /**
      * 数据库登录账号
@@ -131,7 +131,7 @@ public final class DBUtils {
     /**
      * 数据库登录密码
      */
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "123456";
 
     /**
      * 获取数据库连接对象
