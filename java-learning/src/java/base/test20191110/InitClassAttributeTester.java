@@ -19,7 +19,7 @@ public class InitClassAttributeTester {
     private int intValue;
 
     /**
-     * 默认值为\uooo(null)
+     * 默认值为(null)
      */
     private char charValue;
 

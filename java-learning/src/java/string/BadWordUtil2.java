@@ -19,13 +19,27 @@ import java.util.Set;
  * @date 2019/11/14
  */
 public class BadWordUtil2 {
-    public static String filePath = "D:\\dictionary.txt";//敏感词库文件路径
+
+    //敏感词库文件路径
+    public static String filePath = "D:\\dictionary.txt";
     public static Set<String> words;
     public static Map<String,String> wordMap;
-    public static int minMatchTYpe = 1;      //最小匹配规则
-    public static int maxMatchType = 2;      //最大匹配规则
+
+    //最小匹配规则
+    public static int minMatchTYpe = 1;
+    //最大匹配规则
+    public static int maxMatchType = 2;
+
     static{
-        BadWordUtil2.words = readTxtByLine(filePath);
+        //BadWordUtil2.words = readTxtByLine(filePath);
+
+        BadWordUtil2.words = new HashSet<>();
+        BadWordUtil2.words.add("INSERT INTO ");
+        BadWordUtil2.words.add("DELETE ");
+        BadWordUtil2.words.add("UPDATE ");
+        BadWordUtil2.words.add("DROP ");
+        BadWordUtil2.words.add("ALERT ");
+
         addBadWordToHashMap(BadWordUtil2.words);
     }
 
@@ -69,7 +83,10 @@ public class BadWordUtil2 {
             "group by bankbal.bank_type_id,bankbal.currency_name,t.type_name";
 
 
-    public static String string_2 = "select * from table where (delete table where id = 1223)";
+    public static String string_2 = "select * from table where (delete table where id = 1223 " +
+            " and insert into table values(12212,123123) and drop table or alert table)";
+
+    public static String string_3 = "select * from table where updateTime =12323 and createTime =123";
 
     public static void main(String[] args) {
         Set<String> s = BadWordUtil2.words;
@@ -77,11 +94,12 @@ public class BadWordUtil2 {
 
         System.out.println("敏感词的数量：" + BadWordUtil2.wordMap.size());
 
-        String string = string_2.toUpperCase();
+        String string = string_3.toUpperCase();
         System.out.println("待检测语句字数：" + string.length());
 
         long beginTime = System.currentTimeMillis();
-        Set<String> set = BadWordUtil2.getBadWord(string, 2);
+        // Set<String> set = BadWordUtil2.getBadWord(string, 1);
+        Set<String> set = BadWordUtil2.getBadWord(string, maxMatchType);
         // Boolean i = BadWordUtil2.isContaintBadWord(string, 2);
 //        Boolean i2 = BadWordUtil2.isContaintBadWord("粉饰太平", 2);
 //        Boolean i22 = BadWordUtil2.isContaintBadWord("粉饰太平", 1);
@@ -105,7 +123,8 @@ public class BadWordUtil2 {
     public static Set<String> readTxtByLine(String path){
         Set<String> keyWordSet = new HashSet<String>();
         File file=new File(path);
-        if(!file.exists()){      //文件流是否存在
+        if(!file.exists()){
+            //文件流是否存在
             return keyWordSet;
         }
         BufferedReader reader=null;
@@ -140,25 +159,33 @@ public class BadWordUtil2 {
      * @return，如果存在，则返回敏感词字符的长度，不存在返回0
      * @version 1.0
      */
-    @SuppressWarnings({ "rawtypes"})
     public static int checkBadWord(String txt,int beginIndex,int matchType){
-        boolean  flag = false;    //敏感词结束标识位：用于敏感词只有1位的情况
-        int matchFlag = 0;     //匹配标识数默认为0
+        //敏感词结束标识位：用于敏感词只有1位的情况
+        boolean  flag = false;
+        //匹配标识数默认为0
+        int matchFlag = 0;
         char word = 0;
         Map nowMap = wordMap;
         for(int i = beginIndex; i < txt.length() ; i++){
             word = txt.charAt(i);
-            nowMap = (Map) nowMap.get(word);     //获取指定key
-            if(nowMap != null){     //存在，则判断是否为最后一个
-                matchFlag++;     //找到相应key，匹配标识+1
-                if("1".equals(nowMap.get("isEnd"))){       //如果为最后一个匹配规则,结束循环，返回匹配标识数
-                    flag = true;       //结束标志位为true
-                    if(minMatchTYpe == matchType){    //最小规则，直接返回,最大规则还需继续查找
+            //获取指定key
+            nowMap = (Map) nowMap.get(word);
+            //存在，则判断是否为最后一个
+            if(nowMap != null){
+                //找到相应key，匹配标识+1
+                matchFlag++;
+                //如果为最后一个匹配规则,结束循环，返回匹配标识数
+                if("1".equals(nowMap.get("isEnd"))){
+                    //结束标志位为true
+                    flag = true;
+                    //最小规则，直接返回,最大规则还需继续查找
+                    if(minMatchTYpe == matchType){
                         break;
                     }
                 }
             }
-            else{     //不存在，直接返回
+            else{
+                //不存在，直接返回
                 break;
             }
         }
@@ -183,8 +210,10 @@ public class BadWordUtil2 {
     public static boolean isContaintBadWord(String txt,int matchType){
         boolean flag = false;
         for(int i = 0 ; i < txt.length() ; i++){
-            int matchFlag = checkBadWord(txt, i, matchType); //判断是否包含敏感字符
-            if(matchFlag > 0){    //大于0存在，返回true
+            //判断是否包含敏感字符
+            int matchFlag = checkBadWord(txt, i, matchType);
+            if(matchFlag > 0){
+                //大于0存在，返回true
                 flag = true;
             }
         }
@@ -200,7 +229,8 @@ public class BadWordUtil2 {
      */
     public static String replaceBadWord(String txt,int matchType,String replaceChar){
         String resultTxt = txt;
-        Set<String> set = getBadWord(txt, matchType);     //获取所有的敏感词
+        //获取所有的敏感词
+        Set<String> set = getBadWord(txt, matchType);
         Iterator<String> iterator = set.iterator();
         String word = null;
         String replaceString = null;
@@ -223,10 +253,13 @@ public class BadWordUtil2 {
         Set<String> sensitiveWordList = new HashSet<String>();
 
         for(int i = 0 ; i < txt.length() ; i++){
-            int length = checkBadWord(txt, i, matchType);    //判断是否包含敏感字符
-            if(length > 0){    //存在,加入list中
+            int length = checkBadWord(txt, i, matchType);
+            //判断是否包含敏感字符
+            if(length > 0){
+                //存在,加入list中
                 sensitiveWordList.add(txt.substring(i, i+length));
-                i = i + length - 1;    //减1的原因，是因为for会自增
+                //减1的原因，是因为for会自增
+                i = i + length - 1;
             }
         }
 
@@ -255,7 +288,6 @@ public class BadWordUtil2 {
      * @author yqwang0907
      * @date 2018年2月28日下午5:28:08
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     private static void addBadWordToHashMap(Set<String> keyWordSet) {
         wordMap = new HashMap(keyWordSet.size());     //初始化敏感词容器，减少扩容操作
         String key = null;
@@ -264,18 +296,23 @@ public class BadWordUtil2 {
         //迭代keyWordSet
         Iterator<String> iterator = keyWordSet.iterator();
         while(iterator.hasNext()){
-            key = iterator.next();    //关键字
+            //关键字
+            key = iterator.next();
             nowMap = wordMap;
             for(int i = 0 ; i < key.length() ; i++){
-                char keyChar = key.charAt(i);       //转换成char型
-                Object wordMap = nowMap.get(keyChar);       //获取
-
-                if(wordMap != null){        //如果存在该key，直接赋值
+                //转换成char型
+                char keyChar = key.charAt(i);
+                //获取
+                Object wordMap = nowMap.get(keyChar);
+                //如果存在该key，直接赋值
+                if(wordMap != null){
                     nowMap = (Map) wordMap;
                 }
-                else{     //不存在则，则构建一个map，同时将isEnd设置为0，因为他不是最后一个
-                    newWorMap = new HashMap<String,String>();
-                    newWorMap.put("isEnd", "0");     //不是最后一个
+                else{
+                    //不存在则，则构建一个map，同时将isEnd设置为0，因为他不是最后一个
+                    newWorMap = new HashMap<>();
+                    //不是最后一个
+                    newWorMap.put("isEnd", "0");
                     nowMap.put(keyChar, newWorMap);
                     nowMap = newWorMap;
                 }
