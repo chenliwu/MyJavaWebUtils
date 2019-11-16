@@ -1,18 +1,11 @@
 package string;
 
 
-
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 /**参考DFA算法demo:http://blog.csdn.net/chenssy/article/details/26961957*/
 /**
  * @author chenlw
@@ -33,10 +26,12 @@ public class BadWordUtil2 {
     static{
         //BadWordUtil2.words = readTxtByLine(filePath);
 
+        // 添加要检测的敏感词
         BadWordUtil2.words = new HashSet<>();
         BadWordUtil2.words.add("INSERT INTO ");
         BadWordUtil2.words.add("DELETE ");
         BadWordUtil2.words.add("UPDATE ");
+        BadWordUtil2.words.add("DROP TABLE");
         BadWordUtil2.words.add("DROP ");
         BadWordUtil2.words.add("ALERT ");
 
@@ -94,7 +89,7 @@ public class BadWordUtil2 {
 
         System.out.println("敏感词的数量：" + BadWordUtil2.wordMap.size());
 
-        String string = string_3.toUpperCase();
+        String string = string_2.toUpperCase();
         System.out.println("待检测语句字数：" + string.length());
 
         long beginTime = System.currentTimeMillis();
@@ -289,7 +284,8 @@ public class BadWordUtil2 {
      * @date 2018年2月28日下午5:28:08
      */
     private static void addBadWordToHashMap(Set<String> keyWordSet) {
-        wordMap = new HashMap(keyWordSet.size());     //初始化敏感词容器，减少扩容操作
+        // 初始化敏感词容器，减少扩容操作
+        wordMap = new HashMap(keyWordSet.size());
         String key = null;
         Map nowMap = null;
         Map<String, String> newWorMap = null;
@@ -300,11 +296,11 @@ public class BadWordUtil2 {
             key = iterator.next();
             nowMap = wordMap;
             for(int i = 0 ; i < key.length() ; i++){
-                //转换成char型
+                // 转换成char型
                 char keyChar = key.charAt(i);
-                //获取
+                // 获取
                 Object wordMap = nowMap.get(keyChar);
-                //如果存在该key，直接赋值
+                // 如果存在该key，直接赋值
                 if(wordMap != null){
                     nowMap = (Map) wordMap;
                 }
