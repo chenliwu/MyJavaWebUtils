@@ -31,8 +31,12 @@ public class BadWordUtil2 {
         BadWordUtil2.words.add("INSERT INTO ");
         BadWordUtil2.words.add("DELETE ");
         BadWordUtil2.words.add("UPDATE ");
+
+        BadWordUtil2.words.add("CREATE TABLE");
+        BadWordUtil2.words.add("CREATE ");
         BadWordUtil2.words.add("DROP TABLE");
         BadWordUtil2.words.add("DROP ");
+        BadWordUtil2.words.add("ALERT TABLE");
         BadWordUtil2.words.add("ALERT ");
 
         addBadWordToHashMap(BadWordUtil2.words);

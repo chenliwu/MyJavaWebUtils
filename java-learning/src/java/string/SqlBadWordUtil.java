@@ -54,9 +54,18 @@ public class SqlBadWordUtil {
         words.add("INSERT INTO ");
         words.add("DELETE ");
         words.add("UPDATE ");
+
+        words.add("CREATE TABLE");
+        words.add("CREATE ");
         words.add("DROP TABLE");
         words.add("DROP ");
+        words.add("ALERT TABLE");
         words.add("ALERT ");
+
+        words.add("DBMS_");
+        words.add("UTL_");
+        words.add("TRUNCATE ");
+        words.add("MERGE ");
         addBadWordToHashMap(words);
     }
 
