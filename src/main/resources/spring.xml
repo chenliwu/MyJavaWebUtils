@@ -15,6 +15,7 @@
     <!-- 启动包spring自动扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
     <context:component-scan base-package="com.chenlw.java.web.utils"/>
 
+
     <!--任务扫描注解-->
     <task:executor id="executor" pool-size="5"/>
     <task:scheduler id="scheduler" pool-size="10"/>

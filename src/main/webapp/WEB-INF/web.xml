@@ -33,6 +33,21 @@
 
 
 
+    <!--配置springMVC前端控制器-->
+    <servlet>
+        <servlet-name>springMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <!--springMVC配置文件-->
+            <param-value>classpath*:spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springMVC</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
     <!--&lt;!&ndash;-->
         <!--登录过滤器,会对指定URL执行过滤操作：如果用户没有登录，让其跳转到登录界面-->
@@ -66,21 +81,6 @@
     </filter-mapping>
 
 
-    <!--配置springMVC前端控制器-->
-    <servlet>
-        <servlet-name>springMVC</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <!--springMVC配置文件-->
-            <param-value>classpath*:/spring-mvc.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>springMVC</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
 
     <!--允许加载js后缀名的文件。不加以下的代码，JS文件会被spring的过滤器拦截-->
     <servlet-mapping>
