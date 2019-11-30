@@ -69,6 +69,11 @@
         <property name="sessionDAO" ref="sessionDAO"/>
     </bean>
 
+    <!--
+        重写sessionIdCookie.name，解决每次重新请求重新生成session问题。
+        重新生成session后会导致shiro无法成功登录，即使通过shiro的身份验证，也会重新跳转到登录页面，因为session每次都是重新生成的，
+        因而shiro认为该session没有登录，所以会跳转到登录页面。
+      -->
     <bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="sessionDAO" ref="sessionDAO"/>
         <!-- <property name="sessionValidationScheduler" ref="shiroSessionValidationScheduler"/> -->
@@ -77,11 +82,6 @@
 <!--        <property name="sessionIdCookie.domain" value=".xxx.com"/>-->
         <property name="sessionIdCookie.name" value="jsid"/>
         <property name="sessionIdCookie.path" value="/"/>
-        <!-- <property name="sessionListeners">
-            <list>
-                <bean class="com.concom.security.interfaces.listener.SessionListener"/>
-            </list>
-        </property> -->
     </bean>
 
 

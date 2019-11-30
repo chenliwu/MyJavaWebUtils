@@ -16,17 +16,17 @@ import javax.servlet.ServletResponse;
  */
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 
-    @Override
-    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
-        if (!StringUtils.isEmpty(getSuccessUrl())) {
-            // getSession(false)：如果当前session为null,则返回null,而不是创建一个新的session
-            Session session = subject.getSession(false);
-            if (session != null) {
-                session.removeAttribute("shiroSavedRequest");
-            }
-        }
-        return super.onLoginSuccess(token, subject, request, response);
-    }
+//    @Override
+//    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
+//        if (!StringUtils.isEmpty(getSuccessUrl())) {
+//            // getSession(false)：如果当前session为null,则返回null,而不是创建一个新的session
+//            Session session = subject.getSession(false);
+//            if (session != null) {
+//                session.removeAttribute("shiroSavedRequest");
+//            }
+//        }
+//        return super.onLoginSuccess(token, subject, request, response);
+//    }
 
 
 //    @Override
