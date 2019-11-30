@@ -37,7 +37,7 @@
 
     <!-- Realm实现 -->
     <bean id="shiroDataBaseRealm" class="com.chenlw.java.web.utils.shiro.ShiroDataBaseRealm">
-        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <property name="credentialsMatcher" ref="myShiroCredentialsMatcher"/>
         <property name="cachingEnabled" value="true"/>
         <property name="authenticationCachingEnabled" value="true"/>
         <property name="authenticationCacheName" value="authenticationCache"/>
@@ -69,6 +69,22 @@
         <property name="sessionDAO" ref="sessionDAO"/>
     </bean>
 
+    <bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="sessionDAO"/>
+        <!-- <property name="sessionValidationScheduler" ref="shiroSessionValidationScheduler"/> -->
+        <property name="sessionValidationInterval" value="1800000"/>  <!-- 相隔多久检查一次session的有效性 -->
+        <property name="globalSessionTimeout" value="1800000"/>  <!-- session 有效时间为半小时 （毫秒单位）-->
+<!--        <property name="sessionIdCookie.domain" value=".xxx.com"/>-->
+        <property name="sessionIdCookie.name" value="jsid"/>
+        <property name="sessionIdCookie.path" value="/"/>
+        <!-- <property name="sessionListeners">
+            <list>
+                <bean class="com.concom.security.interfaces.listener.SessionListener"/>
+            </list>
+        </property> -->
+    </bean>
+
+
     <!-- 安全管理器 org.apache.shiro.web.mgt.DefaultWebSecurityManager -->
     <!--    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">-->
     <!--        <property name="realms">-->
@@ -86,7 +102,7 @@
                 <ref bean="shiroDataBaseRealm"/>
             </list>
         </property>
-        <property name="sessionManager" ref="sessionManager"/>
+        <property name="sessionManager" ref="shiroSessionManager"/>
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
 
@@ -101,11 +117,18 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <!-- 基于Form表单的身份验证过滤器 -->
-    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+<!--    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">-->
+<!--        <property name="usernameParam" value="username"/>-->
+<!--        <property name="passwordParam" value="password"/>-->
+<!--        &lt;!&ndash; loginUrl 配置表单提交的地址 &ndash;&gt;-->
+<!--        <property name="loginUrl" value="/userLogin"/>-->
+<!--    </bean>-->
+    <bean id="formAuthenticationFilter" class="com.chenlw.java.web.utils.shiro.filter.CustomFormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
         <!-- loginUrl 配置表单提交的地址 -->
         <property name="loginUrl" value="/userLogin"/>
+        <property name="successUrl" value="/index"/>
     </bean>
 
     <!-- Shiro的Web过滤器 -->

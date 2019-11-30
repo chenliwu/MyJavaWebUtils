@@ -28,7 +28,7 @@ public class MyShiroCredentialsMatcher extends HashedCredentialsMatcher implemen
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         String password = String.valueOf(usernamePasswordToken.getPassword());
         String credentials = (String) info.getCredentials();
-        if (StringUtils.isEmpty(password)) {
+        if (!StringUtils.isEmpty(password)) {
             return password.equals(credentials);
         }
         return false;

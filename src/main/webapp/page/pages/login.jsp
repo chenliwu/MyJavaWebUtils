@@ -56,14 +56,15 @@
 <body>
 <header class="layui-bg-green"><h1>用户登录</h1></header>
 <div class="login-body">
-    <form action="#" method="post">
-        <input type="text" id="input_username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off"
+    <form action="${ctx}/userLogin" method="post">
+        <input type="text" id="input_username" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off"
                class="layui-input">
-        <input type="password" id="input_password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+        <input type="password" id="input_password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
                class="layui-input">
+        <button type="submit" class="layui-btn layui-bg-green">登录</button>
+        <button id="btn_reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
     </form>
-    <button id="btn_login" class="layui-btn layui-bg-green">登录</button>
-    <button id="btn_reset" class="layui-btn layui-btn-primary">重置</button>
+
 </div>
 <script language="javascript">
     //显示消息
