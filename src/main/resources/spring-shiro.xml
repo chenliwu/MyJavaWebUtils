@@ -14,7 +14,7 @@
 
     <!-- 缓存管理器 使用Ehcache实现 -->
     <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <property name="cacheManagerConfigFile" value="classpath*:shiro-ehcache.xml"/>
+        <property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
     </bean>
 
     <!-- 凭证匹配器 -->
@@ -70,15 +70,15 @@
     </bean>
 
     <!-- 安全管理器 org.apache.shiro.web.mgt.DefaultWebSecurityManager -->
-<!--    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">-->
-<!--        <property name="realms">-->
-<!--            <list>-->
-<!--                <ref bean="shiroDataBaseRealm"/>-->
-<!--            </list>-->
-<!--        </property>-->
-<!--        <property name="sessionManager" ref="sessionManager"/>-->
-<!--        <property name="cacheManager" ref="cacheManager"/>-->
-<!--    </bean>-->
+    <!--    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">-->
+    <!--        <property name="realms">-->
+    <!--            <list>-->
+    <!--                <ref bean="shiroDataBaseRealm"/>-->
+    <!--            </list>-->
+    <!--        </property>-->
+    <!--        <property name="sessionManager" ref="sessionManager"/>-->
+    <!--        <property name="cacheManager" ref="cacheManager"/>-->
+    <!--    </bean>-->
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager ">
         <property name="realms">
@@ -101,34 +101,47 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <!-- 基于Form表单的身份验证过滤器 -->
-    <bean id="formAuthenticationFilter"
-          class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
-        <property name="loginUrl" value="/login"/>
+        <!-- loginUrl 配置表单提交的地址 -->
+        <property name="loginUrl" value="/userLogin"/>
     </bean>
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
+        <!-- 配置登陆页面 -->
         <property name="loginUrl" value="/loginPage"/>
+        <!-- 登陆成功后的一面 -->
+        <property name="successUrl" value="/index"/>
+        <!--未授权页面-->
         <property name="unauthorizedUrl" value="/unauthorizedPage"/>
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
             </util:map>
         </property>
+<!--        /*-->
+        <!--        * anon  无需认证-->
+        <!--        * authc  必须认证-->
+        <!--        * user  使用rememberme功能可以直接访问-->
+        <!--        * perms 资源授权-->
+        <!--        * role 校色授权-->
+        <!--        * */-->
+        <!-- 具体配置需要拦截哪些 URL, 以及访问对应的 URL 时使用 Shiro 的什么 Filter 进行拦截.  -->
         <property name="filterChainDefinitions">
             <value>
                 /static/** = anon
+                /page/** = anon
                 /unauthorized/* = anon
-                /login = authc
+                /userLogin = authc
+                /loginPage = anon
                 /logout = logout
                 /** = user
             </value>
         </property>
     </bean>
-
 
 
 </beans>

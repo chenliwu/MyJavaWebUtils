@@ -68,6 +68,7 @@
 <script language="javascript">
     //显示消息
     function showMessage(msg) {
+        console.log("showMessage",msg);
         layer.msg(msg);
     }
 
@@ -127,8 +128,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "${ctx}/login",   //请求URL地址
-                    // dataType: "com.chenlw.java.web.utils.java.learning.json",           //服务器返回数据类型
+                    url: "${ctx}/userLogin",   //请求URL地址
                     data: {username: username, password: password}, //请求参数
                     success: onSuccess, //请求成功回调方法
                     error: onError      //请求失败回调方法

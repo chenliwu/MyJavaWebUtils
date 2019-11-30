@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class BTask implements IBTask {
 
-    @Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次
+    // @Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次
     @Override
     public void bTask() {
         try {

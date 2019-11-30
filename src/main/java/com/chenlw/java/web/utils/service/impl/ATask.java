@@ -11,7 +11,7 @@ import java.util.Date;
 @Service
 public class ATask implements IATask {
 
-    @Scheduled(cron="0/10 * *  * * ? ")   //每10秒执行一次
+    //@Scheduled(cron="0/10 * *  * * ? ")   //每10秒执行一次
     @Override
     public void aTask() {
 //        try {
