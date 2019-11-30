@@ -217,6 +217,12 @@
             <version>2.0.1</version>
         </dependency>
 
+        <!-- 集成shiro-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.2.2</version>
+        </dependency>
 
         <!--JPA start-->
         <dependency>
@@ -269,11 +275,11 @@
 
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.dataformat</groupId>-->
-<!--            <artifactId>jackson-dataformat-xml</artifactId>-->
-<!--            <version>2.9.8</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.fasterxml.jackson.dataformat</groupId>-->
+        <!--            <artifactId>jackson-dataformat-xml</artifactId>-->
+        <!--            <version>2.9.8</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -297,11 +303,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-bindings-soap -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.cxf</groupId>-->
-<!--            <artifactId>cxf-rt-bindings-soap</artifactId>-->
-<!--            <version>3.3.3</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.cxf</groupId>-->
+        <!--            <artifactId>cxf-rt-bindings-soap</artifactId>-->
+        <!--            <version>3.3.3</version>-->
+        <!--        </dependency>-->
 
 
         <dependency>

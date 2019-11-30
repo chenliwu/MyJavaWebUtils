@@ -23,7 +23,7 @@
             http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
     <!-- 启动包spring自动扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
-    <context:component-scan base-package="com.charlie.ssm.demo"/>
+    <context:component-scan base-package="com.chenlw.java.web.utils"/>
 
     <!--任务扫描注解-->
     <task:executor id="executor" pool-size="5"/>
@@ -150,7 +150,8 @@
 
     <!-- 自动扫描dao包（Spring会自动查找其下的类） -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.charlie.ssm.demo.mapper"/>
+<!--        <property name="basePackage" value="com.chenl.ssm.demo.mapper"/>-->
+        <property name="basePackage" value="com.chenlw.java.web.utils.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
@@ -171,8 +172,10 @@
           第四个 .. —— 通配 方法可以有0个或多个参数
 	 -->
     <aop:config>
+<!--        <aop:pointcut id="interceptorPointCuts"-->
+<!--                      expression="execution(* com.charlie.ssm.demo.service.*.*(..))"/>-->
         <aop:pointcut id="interceptorPointCuts"
-                      expression="execution(* com.charlie.ssm.demo.service.*.*(..))"/>
+                      expression="execution(* com.chenlw.java.web.utils.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="interceptorPointCuts"/>
     </aop:config>
 
