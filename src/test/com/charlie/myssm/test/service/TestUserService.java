@@ -22,7 +22,7 @@ import java.util.List;
  * @create 2018-06-29 10:51
  **/
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:springMVC-config.xml"})
+@ContextConfiguration(locations = {"classpath*:spring.xml","classpath*:spring-mvc.xml","classpath*:spring-mybatis.xml"})
 @WebAppConfiguration
 public class TestUserService {
 

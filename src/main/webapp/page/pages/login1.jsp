@@ -77,7 +77,7 @@
             var username = $("#usernameElement").val();
             var password = $("#passwordElement").val();
             $.post(
-                "<%=request.getContextPath()%>/api/user/login1",
+                "${ctx}/api/user/login1",
                 {username:username,password:password},
                 function(data,textStatus){
                     console.log(data);

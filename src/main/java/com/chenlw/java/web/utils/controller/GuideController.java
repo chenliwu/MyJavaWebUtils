@@ -1,6 +1,8 @@
 package com.chenlw.java.web.utils.controller;
 
 import com.chenlw.java.web.utils.utils.BytterBfsAppUrlSchemeUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,19 +36,21 @@ public class GuideController {
         return "page/testDownFile";
     }
 
-    @RequestMapping(value = "/list")
-    public String list() {
-        return "page/pages/user/list";
-    }
-
     @RequestMapping(value = "/index")
     public String toMainPage() {
+        Subject subject = SecurityUtils.getSubject();
+
         return "page/index";
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/loginPage")
     public String toLoginPage() {
-        return "page/pages/login1";
+        return "page/pages/login";
+    }
+
+    @RequestMapping(value = "/unauthorizedPage")
+    public String unauthorizedPage() {
+        return "page/pages/unauthorizedPage";
     }
 
 
@@ -55,12 +59,10 @@ public class GuideController {
         String appServerAddress = "http://192.168.0.178:8080/t2";
         String token = "test4";
         String timestamp = String.valueOf((new Date()).getTime());
-        String openAppUrlScheme = BytterBfsAppUrlSchemeUtils.getOpenAppUrlSchemeByToken(appServerAddress,token,timestamp);
+        String openAppUrlScheme = BytterBfsAppUrlSchemeUtils.getOpenAppUrlSchemeByToken(appServerAddress, token, timestamp);
         model.addAttribute("openAppUrlScheme", openAppUrlScheme);
         return "page/openApp/openApp";
     }
-
-
 
 
     @RequestMapping(value = "/openApp1")

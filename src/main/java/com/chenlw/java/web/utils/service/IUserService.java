@@ -9,6 +9,8 @@ import com.chenlw.java.web.utils.entity.UserEntity;
  */
 public interface IUserService{
 
+    UserEntity getUserByUsername(String username);
+
     UserEntity login1(UserEntity userEntity);
 
     /**
