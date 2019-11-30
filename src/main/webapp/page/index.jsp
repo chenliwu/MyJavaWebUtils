@@ -14,7 +14,7 @@
 <body>
     <!--使用$可以直接输出Session里面的共享数据-->
     <h2>Welcome,${user.username}</h2>
-    <a href="${ctx}/login" class="layui-btn layui-bg-green">退出登录</a>
+    <a href="${ctx}/logout" class="layui-btn layui-bg-green">退出登录</a>
 </body>
 <script>
 

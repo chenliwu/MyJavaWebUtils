@@ -16,6 +16,7 @@ import javax.servlet.ServletResponse;
  */
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 
+
 //    @Override
 //    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
 //        if (!StringUtils.isEmpty(getSuccessUrl())) {
@@ -29,8 +30,8 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 //    }
 
 
-//    @Override
-//    protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
-//        WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
-//    }
+    @Override
+    protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
+        WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
+    }
 }
