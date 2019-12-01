@@ -45,6 +45,27 @@
         <property name="authorizationCacheName" value="authorizationCache"/>
     </bean>
 
+
+    <!--  自定义单点登录realm   -->
+
+    <!-- 自定义的凭证匹配器-->
+    <bean id="encryptionCredentialsMatcher" class="com.chenlw.java.web.utils.shiro.encryption.EncryptionCredentialsMatcher">
+
+    </bean>
+
+    <!-- Realm实现 -->
+    <bean id="encryptionSsoRealm" class="com.chenlw.java.web.utils.shiro.encryption.EncryptionSsoRealm">
+        <property name="credentialsMatcher" ref="encryptionCredentialsMatcher"/>
+        <property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="true"/>
+        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="authorizationCache"/>
+    </bean>
+
+    <!--  自定义单点登录realm   -->
+
+
     <!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator"
           class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
@@ -79,7 +100,7 @@
         <!-- <property name="sessionValidationScheduler" ref="shiroSessionValidationScheduler"/> -->
         <property name="sessionValidationInterval" value="1800000"/>  <!-- 相隔多久检查一次session的有效性 -->
         <property name="globalSessionTimeout" value="1800000"/>  <!-- session 有效时间为半小时 （毫秒单位）-->
-<!--        <property name="sessionIdCookie.domain" value=".xxx.com"/>-->
+        <!--        <property name="sessionIdCookie.domain" value=".xxx.com"/>-->
         <property name="sessionIdCookie.name" value="jsid"/>
         <property name="sessionIdCookie.path" value="/"/>
     </bean>
@@ -100,6 +121,7 @@
         <property name="realms">
             <list>
                 <ref bean="shiroDataBaseRealm"/>
+                <ref bean="encryptionSsoRealm"/>
             </list>
         </property>
         <property name="sessionManager" ref="shiroSessionManager"/>
@@ -117,17 +139,24 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <!-- 基于Form表单的身份验证过滤器 -->
-<!--    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">-->
-<!--        <property name="usernameParam" value="username"/>-->
-<!--        <property name="passwordParam" value="password"/>-->
-<!--        &lt;!&ndash; loginUrl 配置表单提交的地址 &ndash;&gt;-->
-<!--        <property name="loginUrl" value="/userLogin"/>-->
-<!--    </bean>-->
+    <!--    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">-->
+    <!--        <property name="usernameParam" value="username"/>-->
+    <!--        <property name="passwordParam" value="password"/>-->
+    <!--        &lt;!&ndash; loginUrl 配置表单提交的地址 &ndash;&gt;-->
+    <!--        <property name="loginUrl" value="/userLogin"/>-->
+    <!--    </bean>-->
     <bean id="formAuthenticationFilter" class="com.chenlw.java.web.utils.shiro.filter.CustomFormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
         <!-- loginUrl 配置表单提交的地址 -->
         <property name="loginUrl" value="/userLogin"/>
+        <property name="successUrl" value="/index"/>
+    </bean>
+
+
+    <!--  自定义单点登录filter -->
+    <bean id="encryptionSsoAuthenticationFilter"
+          class="com.chenlw.java.web.utils.shiro.encryption.EncryptionSsoAuthenticationFilter">
         <property name="successUrl" value="/index"/>
     </bean>
 
@@ -143,9 +172,10 @@
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <entry key="enSso" value-ref="encryptionSsoAuthenticationFilter"/>
             </util:map>
         </property>
-<!--        /*-->
+        <!--        /*-->
         <!--        * anon  无需认证-->
         <!--        * authc  必须认证-->
         <!--        * user  使用rememberme功能可以直接访问-->
@@ -161,6 +191,8 @@
                 /userLogin = authc
                 /loginPage = anon
                 /logout = logout
+                /error/** = anon
+                /enSso = enSso
                 /** = user
             </value>
         </property>

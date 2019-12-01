@@ -54,6 +54,12 @@ public class GuideController {
     }
 
 
+    @RequestMapping(value = "/error/loginFailure")
+    public String loginFailure() {
+        return "page/common/loginFailure";
+    }
+
+
     @RequestMapping(value = "/openApp")
     public String openApp(Model model) throws Exception {
         String appServerAddress = "http://192.168.0.178:8080/t2";
