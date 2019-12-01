@@ -33,6 +33,11 @@ public class EncryptionSsoAuthenticationFilter extends AuthenticatingFilter {
         return new EncryptionSsoToken(username, enCode, ts);
     }
 
+//    @Override
+//    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
+//        return false;
+//    }
+
     /**
      * onAccessDenied：表示当访问拒绝时是否已经处理了；如果返回 true 表示需要继续处理；如果返回 false 表示该拦截器实例已经处理了，将直接返回即可。
      *
@@ -77,6 +82,11 @@ public class EncryptionSsoAuthenticationFilter extends AuthenticatingFilter {
         }
         super.onLoginFailure(token, e, request, response);
         return false;
+    }
+
+    @Override
+    protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
+        WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
     }
 
 

@@ -59,6 +59,15 @@ public class GuideController {
         return "page/common/loginFailure";
     }
 
+    @RequestMapping(value = "/logout")
+    public String logout() {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject != null) {
+            subject.logout();
+        }
+        return toLoginPage();
+    }
+
 
     @RequestMapping(value = "/openApp")
     public String openApp(Model model) throws Exception {

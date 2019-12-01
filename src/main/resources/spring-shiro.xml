@@ -49,7 +49,8 @@
     <!--  自定义单点登录realm   -->
 
     <!-- 自定义的凭证匹配器-->
-    <bean id="encryptionCredentialsMatcher" class="com.chenlw.java.web.utils.shiro.encryption.EncryptionCredentialsMatcher">
+    <bean id="encryptionCredentialsMatcher"
+          class="com.chenlw.java.web.utils.shiro.encryption.EncryptionCredentialsMatcher">
 
     </bean>
 
@@ -157,6 +158,7 @@
     <!--  自定义单点登录filter -->
     <bean id="encryptionSsoAuthenticationFilter"
           class="com.chenlw.java.web.utils.shiro.encryption.EncryptionSsoAuthenticationFilter">
+        <property name="loginUrl" value="/userLogin"/>
         <property name="successUrl" value="/index"/>
     </bean>
 
@@ -172,7 +174,7 @@
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
-                <entry key="enSso" value-ref="encryptionSsoAuthenticationFilter"/>
+                <entry key="enSsoFilter" value-ref="encryptionSsoAuthenticationFilter"/>
             </util:map>
         </property>
         <!--        /*-->
@@ -192,7 +194,7 @@
                 /loginPage = anon
                 /logout = logout
                 /error/** = anon
-                /enSso = enSso
+                /enSso = enSsoFilter
                 /** = user
             </value>
         </property>

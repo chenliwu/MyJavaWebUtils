@@ -82,7 +82,7 @@ public class EncryptionSsoRealm extends AuthorizingRealm {
         String enCode1 = MD5Utils.md5(username + encryptionKey + ts);
         String enCode2 = MD5Utils.md5(enCode1);
         if (enCode.equals(enCode2)) {
-            return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
+            return new SimpleAuthenticationInfo(user, user.getPassword(), this.getClass().getName());
         } else {
             throw new AuthenticationException("用户无权限访问！");
         }
