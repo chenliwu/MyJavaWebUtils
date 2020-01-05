@@ -1,6 +1,8 @@
 package thread.learning201912;
 
 /**
+ * 多线程模拟火车售票系统。
+ *
  * @author chenlw
  * @date 2020/01/02
  */
@@ -70,7 +72,7 @@ class Ticketing extends Thread {
             }
             int saleTicketCount = ticketLibrary.saleTicket();
             if (saleTicketCount == 0) {
-                System.out.println(this.getName()+":车票售卖完毕，本售票处暂停服务！");
+                System.out.println(this.getName() + ":车票售卖完毕，本售票处暂停服务！");
                 break;
             }
         }
