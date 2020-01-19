@@ -20,6 +20,9 @@ import java.util.Base64;
  */
 public class CryptoTester {
 
+    /**
+     * 密钥长度为16，即128位
+     */
     private static final String KEY = "1234567890abcdef";
 
     public static void main(String[] args) throws Exception {
