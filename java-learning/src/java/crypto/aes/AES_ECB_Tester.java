@@ -1,4 +1,4 @@
-package crypto;
+package crypto.aes;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
