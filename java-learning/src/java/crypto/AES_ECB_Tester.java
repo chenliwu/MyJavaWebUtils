@@ -18,7 +18,7 @@ import java.util.Base64;
  * @author chenlw
  * @date 2020/01/17
  */
-public class CryptoTester {
+public class AES_ECB_Tester {
 
     /**
      * 密钥长度为16，即128位
