@@ -18,6 +18,7 @@
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
+    <context:annotation-config/>
 
     <!--任务扫描注解-->
     <task:executor id="executor" pool-size="5"/>
@@ -172,6 +173,36 @@
         <!--密码，这里不是邮箱的密码，而是开启服务器后，生成的授权码-->
         <property name="password" value=""></property>
     </bean>
+
+
+    <!--                  测试Spring的Bean                          -->
+    <bean id="springTestBean" class="com.chenlw.java.web.utils.springwiki.SpringTestBean">
+        <!--  设置实例的字段属性   -->
+        <property name="name" value="测试Spring的Bean"/>
+        <property name="content" value="测试Spring的Bean"/>
+    </bean>
+    <!-- spring  构造器注入 -->
+    <!--    &lt;!&ndash; 注册jdbc实现的dao &ndash;&gt;-->
+    <!--    <bean id="userTestDao" class="com.chenlw.java.web.utils.springwiki.UserTestDao">-->
+    <!--    </bean>-->
+
+    <!--    &lt;!&ndash; 注册userService &ndash;&gt;-->
+    <!--    <bean id="userTestServiceImpl" class="com.chenlw.java.web.utils.springwiki.UserTestServiceImpl">-->
+    <!--        &lt;!&ndash; 将DAO对象注入Service层 &ndash;&gt;-->
+    <!--        <constructor-arg ref="userTestDao"/>-->
+    <!--    </bean>-->
+
+    <!-- 注册jdbc实现的dao -->
+    <bean id="userTestDao" class="com.chenlw.java.web.utils.springwiki.UserTestDao">
+    </bean>
+
+    <!-- 注册userService -->
+    <bean id="userTestServiceImpl" class="com.chenlw.java.web.utils.springwiki.UserTestServiceImpl">
+        <!-- 将DAO对象注入Service层 -->
+        <property name="userTestDao" ref="userTestDao"/>
+    </bean>
+
+    <!--                  测试Spring的Bean                          -->
 
 
 </beans>
