@@ -15,7 +15,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:springMVC-config.xml"})
+@ContextConfiguration(locations = {"classpath:spring.xml","classpath:spring-mvc.xml"})
 @WebAppConfiguration
 public class EmailSenderTest {
 

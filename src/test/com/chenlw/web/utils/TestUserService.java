@@ -1,4 +1,4 @@
-package com.charlie.myssm.test.service;
+package com.chenlw.web.utils;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -22,7 +22,7 @@ import java.util.List;
  * @create 2018-06-29 10:51
  **/
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:springMVC-config.xml"})
+@ContextConfiguration(locations = {"classpath*:spring.xml","classpath*:spring-mvc.xml"})
 @WebAppConfiguration
 public class TestUserService {
 

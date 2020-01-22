@@ -13,7 +13,7 @@ import java.util.Map;
  * @create 2018-06-29 10:05
  **/
 @Controller
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/api/bank")
 public class BankQueryApiController {
 
     public static Map<String, String> usernameMap = new HashMap<>();
@@ -25,14 +25,14 @@ public class BankQueryApiController {
         usernameMap.put("4", "test4");
     }
 
-    @GetMapping("/getUsernameByToken")
-    @ResponseBody
-    public Object getUsernameByToken(String token) {
-        if (token == null) {
-            //return "admin";
-            return null;
-        }
-        return usernameMap.get(token);
-    }
+//    @GetMapping("/getUsernameByToken")
+//    @ResponseBody
+//    public Object getUsernameByToken(String token) {
+//        if (token == null) {
+//            //return "admin";
+//            return null;
+//        }
+//        return usernameMap.get(token);
+//    }
 
 }

@@ -15,10 +15,13 @@
         <welcome-file>/page/pages/login1.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- SpringMVC和mybatis的配置文件 -->
+    <!-- Spring、SpringMVC和mybatis的配置文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:springMVC-config.xml</param-value>
+        <param-value>
+            classpath:spring.xml,
+            classpath:spring-mvc.xml
+        </param-value>
     </context-param>
 
 
@@ -61,7 +64,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <!--springMVC配置文件-->
-            <param-value>classpath*:/springMVC-config.xml</param-value>
+            <param-value>classpath*:/spring-mvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
