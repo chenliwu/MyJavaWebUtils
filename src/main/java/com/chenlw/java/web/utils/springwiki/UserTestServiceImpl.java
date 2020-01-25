@@ -1,13 +1,21 @@
 package com.chenlw.java.web.utils.springwiki;
 
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
 /**
  * 测试spring的构造器注入方式
  *
  * @author chenlw
  * @date 2020/01/22
  */
+@Service
 public class UserTestServiceImpl {
 
+    //private UserTestDao userTestDao;
+
+    @Resource
     private UserTestDao userTestDao;
 
     public UserTestDao getUserTestDao() {

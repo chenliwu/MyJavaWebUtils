@@ -11,30 +11,27 @@ import java.util.Scanner;
  */
 public class Niuke20200117 {
 
+    public static int ans;
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int a, b, c;
-        a = in.nextInt();
-        b = in.nextInt();
-        c = in.nextInt();
+        int x = in.nextInt();
+        int y = in.nextInt();
 
-        List<Integer> list = new ArrayList<>();
-        list.add(a + b + c);
-        list.add(a * (b + c));
-        list.add(a * b * c);
-        list.add((a + b) * c);
-        list.add(a + (b * c));
-        list.sort(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2-o1;
-            }
-        });
-//        for (Integer integer:list) {
-//            System.out.println(integer+"  ");
-//        }
-        System.out.println(list.get(0));
+        dfs(x, y, 0, 0);
+        System.out.println(ans);
+    }
+
+    public static void dfs(int targetX, int targetY, int x, int y) {
+        if (x > targetX || y > targetY) {
+            return;
+        }
+        if (x == targetX && y == targetY) {
+            ans++;
+            return;
+        }
+        dfs(targetX, targetY, x + 1, y);
+        dfs(targetX, targetY, x, y + 1);
     }
 
 }

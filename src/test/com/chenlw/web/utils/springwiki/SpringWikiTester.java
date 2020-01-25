@@ -11,6 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.annotation.Resource;
+
 /**
  * @author chenlw
  * @date 2020/01/22
@@ -21,6 +23,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class SpringWikiTester {
 
     private static ApplicationContext applicationContext;
+
+    @Resource
+    private UserTestServiceImpl userTestService;
 
 
     public static void main(String[] args) {
@@ -54,6 +59,11 @@ public class SpringWikiTester {
         UserTestServiceImpl userTestService = (UserTestServiceImpl) applicationContext.getBean("userTestServiceImpl");
         // 模拟业务方法
         userTestService.login();
+    }
+
+    @Test
+    public void testSpringInjection(){
+        this.userTestService.login();
     }
 
 

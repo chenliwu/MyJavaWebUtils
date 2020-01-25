@@ -192,15 +192,13 @@
     <!--        <constructor-arg ref="userTestDao"/>-->
     <!--    </bean>-->
 
-    <!-- 注册jdbc实现的dao -->
-    <bean id="userTestDao" class="com.chenlw.java.web.utils.springwiki.UserTestDao">
-    </bean>
+<!--    <bean id="userTestDao" class="com.chenlw.java.web.utils.springwiki.UserTestDao">-->
+<!--    </bean>-->
 
-    <!-- 注册userService -->
-    <bean id="userTestServiceImpl" class="com.chenlw.java.web.utils.springwiki.UserTestServiceImpl">
-        <!-- 将DAO对象注入Service层 -->
-        <property name="userTestDao" ref="userTestDao"/>
-    </bean>
+<!--    <bean id="userTestServiceImpl" class="com.chenlw.java.web.utils.springwiki.UserTestServiceImpl">-->
+<!--        &lt;!&ndash; 将DAO对象注入Service层 &ndash;&gt;-->
+<!--        <property name="userTestDao" ref="userTestDao"/>-->
+<!--    </bean>-->
 
     <!--                  测试Spring的Bean                          -->
 
