@@ -194,6 +194,7 @@
                 /loginPage = anon
                 /logout = logout
                 /error/** = anon
+                /hq/** = anon
                 /enSso = enSsoFilter
                 /** = user
             </value>
