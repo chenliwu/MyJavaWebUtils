@@ -26,7 +26,7 @@ import java.util.Map;
 public class UserRestController {
 
     @Autowired
-    private IUserService mIUserService;
+    private IUserService userService;
 
     public static Map<String, String> usernameMap = new HashMap<>();
 
@@ -50,20 +50,20 @@ public class UserRestController {
     @GetMapping("/queryPage")
     @ResponseBody
     public Page<UserEntity> queryPage(UserEntity userEntity, @PageableDefault Page<UserEntity> page) {
-        return mIUserService.queryPage(userEntity, page);
+        return userService.queryPage(userEntity, page);
     }
 
     @GetMapping("/queryList")
     @ResponseBody
     public List<UserEntity> queryList(UserEntity userEntity, @PageableDefault Page<UserEntity> page) {
-        return mIUserService.queryPage(userEntity, page).getRecords();
+        return userService.queryPage(userEntity, page).getRecords();
     }
 
 
     @RequestMapping(value = "/login1")
     @ResponseBody
     public UserEntity login1(UserEntity userEntity, Model model, HttpServletRequest request) {
-        UserEntity result = mIUserService.login1(userEntity);
+        UserEntity result = userService.login1(userEntity);
         if (result != null) {
             //携带数据带前段
             model.addAttribute("user", userEntity);
@@ -77,7 +77,7 @@ public class UserRestController {
     @RequestMapping(value = "/login")
     @ResponseBody
     public ResultEntity login(UserEntity userEntity, HttpServletRequest request) {
-        ResultEntity resultEntity = mIUserService.login(userEntity);
+        ResultEntity resultEntity = userService.login(userEntity);
         if (resultEntity.getState() == 200) {
             //用户登录成功，将用户信息存储到session
             request.getSession().setAttribute("user", resultEntity.getData());

@@ -12,7 +12,7 @@
 
     <!--  springMVC配置文件中加入对controller层的扫描。这个配置必须在springMVC配置当中  -->
     <!-- 启动包spring自动扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
-    <context:component-scan base-package="com.chenlw.java.web.utils.**"/>
+    <context:component-scan base-package="com.chenlw.java.web.utils.*"/>
 
     <mvc:resources mapping="/h5/**" location="/h5/"/>
     <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
