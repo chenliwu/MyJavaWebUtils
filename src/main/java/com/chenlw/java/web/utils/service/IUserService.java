@@ -9,6 +9,8 @@ import com.chenlw.java.web.utils.entity.UserEntity;
  */
 public interface IUserService{
 
+    UserEntity getUserByUsername(String username);
+
     UserEntity login1(UserEntity userEntity);
 
     /**
@@ -17,7 +19,7 @@ public interface IUserService{
      * @param page
      * @return
      */
-    Page<UserEntity> queryPage(UserEntity userEntity,Page<UserEntity> page);
+    Page<UserEntity> queryPage(UserEntity userEntity, Page<UserEntity> page);
 
 
 
