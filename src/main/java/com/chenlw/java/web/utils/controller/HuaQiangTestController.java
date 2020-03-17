@@ -1,6 +1,5 @@
 package com.chenlw.java.web.utils.controller;
 
-import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -24,12 +23,11 @@ public class HuaQiangTestController {
     @GetMapping("/ssocas/oauth2.0/profile")
     @ResponseBody
     public Object sso(String access_token, Long expires_in) {
-        Map<String, Object> objectMap = new HashMap<>();
         System.out.println("access_token:" + access_token);
         System.out.println("expires_in:" + expires_in);
-        objectMap.put("id", "admin");
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id","100857");
+        // jsonObject.put("id", "100857");
+        jsonObject.put("id", "admin");
         jsonObject.put("loginName","admin");
         return jsonObject.toString();
     }
