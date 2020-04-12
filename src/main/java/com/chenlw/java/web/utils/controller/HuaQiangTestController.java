@@ -29,7 +29,7 @@ public class HuaQiangTestController {
         System.out.println("expires_in:" + expires_in);
         objectMap.put("id", "admin");
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id","100857");
+        jsonObject.put("id","admin");
         jsonObject.put("loginName","admin");
         return jsonObject.toString();
     }
