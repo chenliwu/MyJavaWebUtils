@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -45,9 +46,13 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
         ResultEntity resultEntity = new ResultEntity();
-        resultEntity.setMessage("登录失败！原因：" + e.getMessage());
+        if (e instanceof UnknownAccountException) {
+            resultEntity.setMessage("登录失败！账号或密码错误");
+        }else{
+            resultEntity.setMessage("登录失败！原因：" + e.getMessage());
+        }
         sendResultEntity(response, resultEntity);
-        return super.onLoginFailure(token, e, request, response);
+        return true;
     }
 
     /**

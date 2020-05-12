@@ -73,7 +73,8 @@
     //显示消息
     function showMessage(msg) {
         console.log("showMessage",msg);
-        layer.msg(msg);
+        // layer.msg(msg);
+        alert(msg);
     }
 
     //检查输入内容
@@ -133,7 +134,11 @@
                 $.ajax({
                     type: "POST",
                     url: "${ctx}/userLogin",   //请求URL地址
-                    data: {username: username, password: password}, //请求参数
+                    data: {
+                        //请求参数
+                        username: username,
+                        password: password
+                    },
                     success: onSuccess, //请求成功回调方法
                     error: onError      //请求失败回调方法
                 });
