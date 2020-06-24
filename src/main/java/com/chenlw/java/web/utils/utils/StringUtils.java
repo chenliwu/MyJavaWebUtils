@@ -8,6 +8,7 @@ import java.util.Random;
 public class StringUtils {
 
     public static void main(String[]args){
+        System.out.println( System.currentTimeMillis());
 //        String str12len = getRandomString(12);
 //        String str35len = getRandomString(35);
 //        System.out.println("12位随机字符串："+str12len);
@@ -15,7 +16,7 @@ public class StringUtils {
 //        System.out.println("35位随机字符串："+str35len);
 //        System.out.println("length："+str35len.length());
 
-        test();
+       // test();
 
     }
 

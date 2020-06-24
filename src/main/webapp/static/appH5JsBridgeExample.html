@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试H5-JS桥接通信</title>
+</head>
+<body>
+
+<button onclick="testRequestData()">测试请求数据方法</button>
+
+</body>
+
+<script type="text/javascript">
+    window.BTAppBridge = {
+        post: function (url, params, callback) {
+            var obj = {
+                type: 'requestData',
+                method: 'post',
+                params: params || {},
+                callback: callback
+            };
+            obj.params.forwardURL = url;
+            window.parent.postMessage(JSON.stringify(obj), '*');
+        },
+        get: function (url, params, callback) {
+            alert("get");
+            var obj = {
+                type: 'requestData',
+                method: 'get',
+                params: params || {},
+                callback: callback
+            };
+            obj.params.forwardURL = url;
+            window.parent.postMessage(JSON.stringify(obj), '*');
+        },
+    };
+    window.document.addEventListener('message', function (event) {
+        var data = JSON.parse(event.data);
+        console.log("currentPage.message", data);
+        switch (data.type) {
+            case 'requestData':
+                if (data.callback) {
+                    var Fn = Function;
+                    var func = new Fn('return ' + data.callback)();
+                    func && func(data.result);
+                }
+                break;
+        }
+    }, false);
+</script>
+
+<script type="text/javascript">
+
+    window.onload = function (ev) {
+
+    }
+
+    window.testCallback = function (data) {
+        alert(data);
+        //data为回调数据
+    }
+
+    function testRequestData() {
+        // alert("testRequestData")
+        setTimeout(function () {
+            BTAppBridge.post("/api/chart/testPage1", {aaa: "aaaa"}, "testCallback");
+        }, 100);
+    }
+
+
+</script>
