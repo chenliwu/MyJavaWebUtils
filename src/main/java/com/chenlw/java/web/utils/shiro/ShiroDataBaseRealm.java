@@ -14,6 +14,11 @@ public class ShiroDataBaseRealm extends AuthorizingRealm {
     @Resource
     private IUserService userService;
 
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof UsernamePasswordToken;
+    }
+
     /**
      * 身份验证
      *
