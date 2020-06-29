@@ -189,6 +189,7 @@
             <value>
                 /static/** = anon
                 /page/** = anon
+                /test/** = anon
                 /unauthorized/* = anon
                 /userLogin = authc
                 /loginPage = anon
