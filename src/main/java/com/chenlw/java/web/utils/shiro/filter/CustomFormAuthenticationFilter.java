@@ -40,6 +40,7 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
         super.issueSuccessRedirect(request, response);
+        System.out.println();
         // WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
     }
 
