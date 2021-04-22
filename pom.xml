@@ -19,7 +19,7 @@
         <!--spring版本-->
         <springframework>4.3.12.RELEASE</springframework>
         <!--MyBatis版本-->
-        <mybatis-version>3.4.5</mybatis-version>
+        <mybatis-version>3.5.6</mybatis-version>
         <!--Servlet版本-->
         <serletversion>3.1.0</serletversion>
     </properties>
